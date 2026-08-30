@@ -57,6 +57,23 @@ if ($plant_id === 0) {
         <h1>Our Plants & Produce</h1>
     </div>
 
+    <!-- Recommendation Banner -->
+<div class="recommendation-banner">
+    <div class="recommendation-banner-content">
+        <div class="recommendation-banner-text">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+                <h3>Not sure which plant to grow?</h3>
+                <p>Get a recommendation based on your location and environmental conditions!</p>
+            </div>
+        </div>
+        <a href="recommendation.php" class="btn-recommendation">
+            Get Recommendation &rarr;
+        </a>
+    </div>
+</div>
+
+
     <!-- Green Banner -->
     <div class="plants-banner">
         <p>Discover our curated selection of high-yield, resilient plants and top-quality vegetables and fruits tailored for your growing environment.</p>
@@ -200,6 +217,57 @@ if ($plant_id === 0) {
     /* Page Header */
     .plants-page-header { margin-bottom: 16px; }
     .plants-page-header h1 { font-size: 1.8rem; font-weight: 700; color: var(--on-surface); }
+
+    /* Recommendation Banner */
+.recommendation-banner {
+    background: linear-gradient(135deg, #e6f4e1, #c8e6c0);
+    border: 1px solid #b5d9a8;
+    border-radius: var(--radius-lg);
+    padding: 20px 24px;
+    margin-bottom: 16px;
+}
+.recommendation-banner-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+.recommendation-banner-text {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+.recommendation-banner-text i {
+    font-size: 28px;
+    color: var(--primary);
+    flex-shrink: 0;
+}
+.recommendation-banner-text h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+.recommendation-banner-text p {
+    font-size: 13px;
+    color: #2d7a1f;
+}
+.btn-recommendation {
+    padding: 10px 20px;
+    background: var(--primary);
+    color: #fff;
+    border-radius: var(--radius-full);
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+}
+.btn-recommendation:hover { opacity: 0.85; }
+
+@media (max-width: 768px) {
+    .recommendation-banner-content { flex-direction: column; align-items: flex-start; }
+}
 
     /* Banner */
     .plants-banner {
