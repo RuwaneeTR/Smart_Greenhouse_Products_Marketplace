@@ -21,9 +21,9 @@ if ($plant_id === 0) {
 
     // Only fetch plants category
     $sql = "SELECT products.*, stores.store_name
-            FROM products
-            JOIN stores ON products.store_id = stores.id
-            WHERE products.category = 'plant'";
+        FROM products
+        JOIN stores ON products.store_id = stores.id
+        WHERE products.category = 'plant'";
 
     $params = [];
 
@@ -170,19 +170,22 @@ if ($plant_id === 0) {
                         </p>
 
                         <!-- Description - trimmed -->
-                        <?php if (!empty($plant['description'])): ?>
-                            <div class="plant-why-fits">
-                                <p class="why-fits-label">
-                                    <i class="fas fa-check-circle"></i> Description
-                                </p>
-                                <p class="why-fits-text">
-                                    <?php
-                                        $desc = $plant['description'];
-                                        echo htmlspecialchars(strlen($desc) > 100 ? substr($desc, 0, 100).'...' : $desc);
-                                    ?>
-                                </p>
-                            </div>
-                        <?php endif; ?>
+                        <?php
+// Use plant_recommendations description if available, otherwise fall back to product description
+
+if (!empty($plant['description'])): ?>
+    <div class="plant-why-fits">
+        <p class="why-fits-label">
+            <i class="fas fa-check-circle"></i> Description
+        </p>
+        <p class="why-fits-text">
+            <?php
+                $desc = $plant['description'];
+                echo htmlspecialchars(strlen($desc) > 100 ? substr($desc, 0, 100).'...' : $desc);
+            ?>
+        </p>
+    </div>
+<?php endif; ?>
 
                         <!-- Stock + Add to Cart -->
                         <div class="plant-card-bottom">
@@ -526,13 +529,13 @@ if ($plant['quantity'] <= 0) {
 
             <!-- Description -->
             <?php if (!empty($plant['description'])): ?>
-                <div class="plant-detail-desc-box">
-                    <p class="plant-detail-desc-label">Description</p>
-                    <p class="plant-detail-desc">
-                        <?php echo nl2br(htmlspecialchars($plant['description'])); ?>
-                    </p>
-                </div>
-            <?php endif; ?>
+    <div class="plant-detail-desc-box">
+        <p class="plant-detail-desc-label">Description</p>
+        <p class="plant-detail-desc">
+            <?php echo nl2br(htmlspecialchars($plant['description'])); ?>
+        </p>
+    </div>
+<?php endif; ?>
 
             <!-- Stock Status -->
             <span class="plant-detail-stock <?php echo $stockClass; ?>">

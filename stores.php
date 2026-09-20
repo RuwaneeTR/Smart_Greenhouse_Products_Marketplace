@@ -323,6 +323,7 @@ $stmtStore = $pdo->prepare("
     SELECT stores.*,
            users.full_name AS owner_name,
            users.email AS owner_email,
+           users.address AS owner_address,
            users.gap_certificate,
            COUNT(DISTINCT products.id) AS total_products,
            COUNT(DISTINCT orders.customer_id) AS happy_customers,
@@ -477,10 +478,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_review'])) {
                 <h3>About the Grower</h3>
                 <p><?php echo nl2br(htmlspecialchars($store['description'] ?? 'No description provided.')); ?></p>
                 <div class="store-contact-info">
-                    <?php if (!empty($store['owner_email'])): ?>
-                        <p><i class="fas fa-envelope"></i> <a href="mailto:<?php echo htmlspecialchars($store['owner_email']); ?>"><?php echo htmlspecialchars($store['owner_email']); ?></a></p>
-                    <?php endif; ?>
-                </div>
+    <?php if (!empty($store['city'])): ?>
+        <p><i class="fas fa-location-dot"></i> <?php echo htmlspecialchars($store['city']); ?></p>
+    <?php endif; ?>
+    <?php if (!empty($store['owner_address'])): ?>
+        <p><i class="fas fa-map-marker-alt"></i> <?php echo htmlspecialchars($store['owner_address']); ?></p>
+    <?php endif; ?>
+    <?php if (!empty($store['owner_email'])): ?>
+        <p><i class="fas fa-envelope"></i> <a href="mailto:<?php echo htmlspecialchars($store['owner_email']); ?>"><?php echo htmlspecialchars($store['owner_email']); ?></a></p>
+    <?php endif; ?>
+</div>
             </div>
 
             <div class="store-products">
