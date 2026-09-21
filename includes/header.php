@@ -21,11 +21,7 @@
             <a href="index.php">Home</a>
             <a href="stores.php">Stores</a>
 
-            <!-- -----------------------------------------------
-                 PRODUCTS DROPDOWN
-                 position:relative on the wrapper so the dropdown
-                 positions itself below the Products link
-                 ----------------------------------------------- -->
+            <!-- Products dropdown -->
             <div class="nav-dropdown-wrap">
                 <a href="#" class="nav-dropdown-trigger">
                     Products <i class="fas fa-chevron-down nav-chevron"></i>
@@ -57,7 +53,7 @@
         </nav>
     </header>
 
-    <!-- Dropdown CSS + JS injected here so it's available on every page -->
+    <!-- Dropdown CSS and JS injected here so it's available on every page -->
     <style>
         /* Dropdown Wrapper */
         .nav-dropdown-wrap {

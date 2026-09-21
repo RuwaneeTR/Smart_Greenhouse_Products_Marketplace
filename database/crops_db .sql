@@ -1,31 +1,9 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Sep 20, 2026 at 10:53 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `crops_db`
---
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `admin_warnings`
---
 
 CREATE TABLE `admin_warnings` (
   `id` int(11) NOT NULL,
@@ -35,11 +13,7 @@ CREATE TABLE `admin_warnings` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
---
 -- Table structure for table `agro_ecological_zones`
---
 
 CREATE TABLE `agro_ecological_zones` (
   `id` int(11) NOT NULL,
@@ -53,9 +27,7 @@ CREATE TABLE `agro_ecological_zones` (
   `annual_rainfall_max` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
 -- Dumping data for table `agro_ecological_zones`
---
 
 INSERT INTO `agro_ecological_zones` (`id`, `zone_name`, `district`, `typical_temp_min`, `typical_temp_max`, `typical_humidity_min`, `typical_humidity_max`, `annual_rainfall_min`, `annual_rainfall_max`) VALUES
 (1, 'Dry Zone', 'Anuradhapura', 20.00, 38.00, 50.00, 75.00, 625, 1900),
@@ -80,11 +52,7 @@ INSERT INTO `agro_ecological_zones` (`id`, `zone_name`, `district`, `typical_tem
 (20, 'Upcountry', 'Nuwara Eliya', 10.00, 20.00, 70.00, 90.00, 1500, 3000),
 (21, 'Upcountry', 'Bandarawela', 10.00, 22.00, 70.00, 90.00, 1500, 3000);
 
--- --------------------------------------------------------
-
---
 -- Table structure for table `cart`
---
 
 CREATE TABLE `cart` (
   `id` int(11) NOT NULL,
@@ -94,32 +62,7 @@ CREATE TABLE `cart` (
   `added_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `memberships`
---
-
-CREATE TABLE `memberships` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `plan_name` varchar(50) DEFAULT 'Annual Plan',
-  `amount` decimal(10,2) DEFAULT 999.00,
-  `currency` varchar(10) DEFAULT 'LKR',
-  `status` enum('pending','active','expired','cancelled') DEFAULT 'pending',
-  `payment_id` varchar(100) DEFAULT NULL,
-  `order_id` varchar(50) DEFAULT NULL,
-  `start_date` date DEFAULT NULL,
-  `expiry_date` date DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `notifications`
---
 
 CREATE TABLE `notifications` (
   `id` int(11) NOT NULL,
@@ -129,11 +72,7 @@ CREATE TABLE `notifications` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
---
 -- Table structure for table `orders`
---
 
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
@@ -146,11 +85,7 @@ CREATE TABLE `orders` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
---
 -- Table structure for table `order_items`
---
 
 CREATE TABLE `order_items` (
   `id` int(11) NOT NULL,
@@ -160,29 +95,7 @@ CREATE TABLE `order_items` (
   `price_at_purchase` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `payment_transactions`
---
-
-CREATE TABLE `payment_transactions` (
-  `id` int(11) NOT NULL,
-  `order_id` varchar(50) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `amount` decimal(10,2) NOT NULL,
-  `currency` varchar(10) DEFAULT 'LKR',
-  `status` enum('pending','completed','failed','cancelled') DEFAULT 'pending',
-  `payment_id` varchar(100) DEFAULT NULL,
-  `payment_reference` varchar(100) DEFAULT NULL,
-  `transaction_date` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `plant_growing_advice`
---
 
 CREATE TABLE `plant_growing_advice` (
   `id` int(11) NOT NULL,
@@ -193,11 +106,7 @@ CREATE TABLE `plant_growing_advice` (
   `image_url` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
---
 -- Table structure for table `plant_recommendations`
---
 
 CREATE TABLE `plant_recommendations` (
   `id` int(11) NOT NULL,
@@ -211,9 +120,7 @@ CREATE TABLE `plant_recommendations` (
   `description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
 -- Dumping data for table `plant_recommendations`
---
 
 INSERT INTO `plant_recommendations` (`id`, `plant_name`, `min_rainfall_mm`, `max_rainfall_mm`, `min_humidity_pct`, `max_humidity_pct`, `min_temp_c`, `max_temp_c`, `description`) VALUES
 (14, 'Tomato', 1000, 2000, 60.00, 80.00, 18.00, 28.00, 'Popular greenhouse vegetable.'),
@@ -230,11 +137,7 @@ INSERT INTO `plant_recommendations` (`id`, `plant_name`, `min_rainfall_mm`, `max
 (25, 'Potato', 1000, 2000, 60.00, 80.00, 15.00, 25.00, 'Suitable for Upcountry areas.'),
 (26, 'Green Gram', 600, 1000, 50.00, 75.00, 22.00, 32.00, 'Suitable for Dry Zone uplands.');
 
--- --------------------------------------------------------
-
---
 -- Table structure for table `products`
---
 
 CREATE TABLE `products` (
   `id` int(11) NOT NULL,
@@ -248,21 +151,68 @@ CREATE TABLE `products` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
 -- Dumping data for table `products`
---
 
 INSERT INTO `products` (`id`, `store_id`, `name`, `description`, `price`, `category`, `quantity`, `image`, `created_at`) VALUES
-(1, 1, 'Organic Tomato', 'Juicy, vine-ripened organic tomatoes.', 4.50, 'vegetable', 100, 'tomato.jpg', '2026-09-01 15:24:48'),
-(2, 1, 'Lavender Plant', 'Beautiful purple lavender, great for gardens.', 12.00, 'plant', 50, 'lavender.jpg', '2026-09-01 15:24:48'),
-(3, 2, 'Strawberries', 'Sweet, fresh California strawberries.', 6.00, 'fruit', 80, 'strawberries.jpg', '2026-09-01 15:24:48'),
-(4, 2, 'Basil Plant', 'Fresh aromatic basil for cooking.', 5.50, 'plant', 60, 'basil.jpg', '2026-09-01 15:24:48');
+(1, 1, 'Organic Tomato', 'Juicy, vine-ripened organic tomatoes.', 4.50, 'vegetable', 100, 'tomato.jpg', '2026-09-01 20:54:48'),
+(2, 1, 'Lavender Plant', 'Beautiful purple lavender, great for gardens.', 12.00, 'plant', 50, 'lavender.jpg', '2026-09-01 20:54:48'),
+(3, 2, 'Strawberries', 'Sweet, fresh California strawberries.', 6.00, 'fruit', 80, 'strawberries.jpg', '2026-09-01 20:54:48'),
+(4, 2, 'Basil Plant', 'Fresh aromatic basil for cooking.', 5.50, 'plant', 60, 'basil.jpg', '2026-09-01 20:54:48'),
+(5, 1, 'Jasmine', 'Jasmine - a popular flowering plant. Support with a trellis as it grows; fragrant blooms appear at night.', 765.76, 'plant', 10, NULL, '2026-09-20 17:40:10'),
+(6, 1, 'Snake Plant', 'Snake Plant - a popular indoor plant. Extremely hardy; water sparingly, ideal for beginners.', 721.57, 'plant', 5, NULL, '2026-09-20 17:40:10'),
+(7, 2, 'Bougainvillea', 'Bougainvillea - a popular flowering plant. Thrives on neglect; too much water reduces flowering.', 1092.59, 'plant', 40, NULL, '2026-09-20 17:40:10'),
+(8, 2, 'Rose', 'Rose - a popular flowering plant. Prune regularly and water at the base to avoid fungal issues.', 330.96, 'plant', 20, NULL, '2026-09-20 17:40:10'),
+(9, 1, 'Aloe Vera', 'Aloe Vera - a popular succulent plant. Allow soil to dry out completely between waterings.', 734.30, 'plant', 10, NULL, '2026-09-20 17:40:10'),
+(10, 1, 'Brinjal', 'Fresh brinjal grown in greenhouse conditions.', 80.56, 'vegetable', 30, NULL, '2026-09-20 17:40:10'),
+(11, 1, 'Carrot', 'Fresh carrot grown in greenhouse conditions.', 72.48, 'vegetable', 30, NULL, '2026-09-20 17:40:10'),
+(12, 2, 'Cabbage', 'Fresh cabbage grown in greenhouse conditions.', 174.77, 'vegetable', 30, NULL, '2026-09-20 17:40:10'),
+(13, 2, 'Pineapple', 'Fresh pineapple grown in greenhouse conditions.', 92.71, 'fruit', 30, NULL, '2026-09-20 17:40:10'),
+(14, 2, 'Mango', 'Fresh mango grown in greenhouse conditions.', 207.87, 'fruit', 100, NULL, '2026-09-20 17:40:10'),
+(17, 2, 'Bougainvillea', 'Bougainvillea - a popular flowering plant. Thrives on neglect; too much water reduces flowering.', 1092.59, 'plant', 40, 'bougainvillea.jpg', '2026-09-20 17:44:35'),
+(18, 2, 'Rose', 'Rose - a popular flowering plant. Prune regularly and water at the base to avoid fungal issues.', 330.96, 'plant', 20, 'rose.jpg', '2026-09-20 17:44:35'),
+(22, 2, 'Cabbage', 'Fresh cabbage grown in greenhouse conditions.', 174.77, 'vegetable', 30, 'cabbage.jpg', '2026-09-20 17:44:35'),
+(23, 2, 'Pineapple', 'Fresh pineapple grown in greenhouse conditions.', 92.71, 'fruit', 30, 'pineapple.jpg', '2026-09-20 17:44:35'),
+(24, 2, 'Mango', 'Fresh mango grown in greenhouse conditions.', 207.87, 'fruit', 100, 'mango.jpg', '2026-09-20 17:44:35'),
+(27, 2, 'Bougainvillea', 'Bougainvillea - a popular flowering plant. Thrives on neglect; too much water reduces flowering.', 1092.59, 'plant', 40, 'bougainvillea.jpg', '2026-09-20 17:55:21'),
+(28, 2, 'Rose', 'Rose - a popular flowering plant. Prune regularly and water at the base to avoid fungal issues.', 330.96, 'plant', 20, 'rose.jpg', '2026-09-20 17:55:21'),
+(32, 2, 'Cabbage', 'Fresh cabbage grown in greenhouse conditions.', 174.77, 'vegetable', 30, 'cabbage.jpg', '2026-09-20 17:55:21'),
+(33, 2, 'Pineapple', 'Fresh pineapple grown in greenhouse conditions.', 92.71, 'fruit', 30, 'pineapple.jpg', '2026-09-20 17:55:21'),
+(34, 2, 'Mango', 'Fresh mango grown in greenhouse conditions.', 207.87, 'fruit', 100, 'mango.jpg', '2026-09-20 17:55:21'),
+(35, 5, 'Capsicum', 'Fresh capsicum grown in greenhouse conditions.', 570.72, 'vegetable', 30, 'capsicum.jpg', '2026-09-21 01:52:57'),
+(36, 5, 'Snake Gourd', 'Fresh snake gourd grown in greenhouse conditions.', 367.90, 'vegetable', 20, 'snake_gourd.jpg', '2026-09-21 01:52:57'),
+(37, 5, 'Rose', 'Rose - a popular flowering plant. Prune regularly and water at the base.', 330.96, 'plant', 20, 'rose.jpg', '2026-09-21 01:52:57'),
+(38, 6, 'Pomegranate', 'Fresh pomegranate grown in greenhouse conditions.', 365.70, 'fruit', 50, 'pomegranate.jpg', '2026-09-21 01:52:57'),
+(39, 6, 'Bitter Gourd', 'Fresh bitter gourd grown in greenhouse conditions.', 145.21, 'vegetable', 0, 'bitter_gourd.jpg', '2026-09-21 01:52:57'),
+(40, 6, 'Hibiscus', 'Hibiscus - a popular flowering plant. Deadhead spent blooms.', 699.68, 'plant', 15, 'hibiscus.jpg', '2026-09-21 01:52:57'),
+(41, 7, 'Rambutan', 'Fresh rambutan grown in greenhouse conditions.', 557.13, 'fruit', 5, 'rambutan.jpg', '2026-09-21 01:52:57'),
+(42, 7, 'Mango', 'Fresh mango grown in greenhouse conditions.', 207.87, 'fruit', 100, 'mango.jpg', '2026-09-21 01:52:57'),
+(43, 7, 'Jasmine', 'Jasmine - a popular flowering plant. Fragrant blooms appear at night.', 624.96, 'plant', 40, 'jasmine.jpg', '2026-09-21 01:52:57'),
+(44, 5, 'Capsicum', 'Fresh capsicum grown in greenhouse conditions.', 570.72, 'vegetable', 30, 'capsicum.jpg', '2026-09-21 02:22:04'),
+(45, 5, 'Cabbage', 'Fresh cabbage grown in greenhouse conditions.', 174.77, 'vegetable', 25, 'cabbage.jpg', '2026-09-21 02:22:04'),
+(46, 5, 'Rose', 'Rose - a popular flowering plant.', 330.96, 'plant', 20, 'rose.jpg', '2026-09-21 02:22:04'),
+(47, 6, 'Pomegranate', 'Fresh pomegranate grown in greenhouse conditions.', 365.70, 'fruit', 50, 'pomegranate.jpg', '2026-09-21 02:22:04'),
+(48, 6, 'Bitter Gourd', 'Fresh bitter gourd grown in greenhouse conditions.', 145.21, 'vegetable', 20, 'bitter_gourd.jpg', '2026-09-21 02:22:04'),
+(49, 6, 'Hibiscus', 'Hibiscus - a popular flowering plant.', 699.68, 'plant', 15, 'hibiscus.jpg', '2026-09-21 02:22:04'),
+(50, 7, 'Rambutan', 'Fresh rambutan grown in greenhouse conditions.', 557.13, 'fruit', 5, 'rambutan.jpg', '2026-09-21 02:22:04'),
+(51, 7, 'Snake Gourd', 'Fresh snake gourd grown in greenhouse conditions.', 361.68, 'vegetable', 30, 'snake_gourd.jpg', '2026-09-21 02:22:04'),
+(52, 7, 'Bougainvillea', 'Bougainvillea - a popular flowering plant.', 997.73, 'plant', 40, 'bougainvillea.jpg', '2026-09-21 02:22:04'),
+(53, 11, 'Mango', 'Fresh mango grown in greenhouse conditions.', 372.85, 'fruit', 30, 'mango.jpg', '2026-09-21 02:22:04'),
+(54, 11, 'Long Bean', 'Fresh long bean grown in greenhouse conditions.', 215.92, 'vegetable', 30, 'long_bean.jpg', '2026-09-21 02:22:04'),
+(55, 11, 'Money Plant', 'Money Plant - a popular indoor plant.', 1136.48, 'plant', 10, 'money_plant.jpg', '2026-09-21 02:22:04'),
+(56, 12, 'Banana', 'Fresh banana grown in greenhouse conditions.', 464.00, 'fruit', 20, 'banana.jpg', '2026-09-21 02:22:04'),
+(57, 12, 'Pineapple', 'Fresh pineapple grown in greenhouse conditions.', 92.71, 'fruit', 30, 'pineapple.jpg', '2026-09-21 02:22:04'),
+(58, 12, 'Areca Palm', 'Areca Palm - a popular indoor plant.', 1076.97, 'plant', 20, 'areca_palm.jpg', '2026-09-21 02:22:04'),
+(59, 8, 'Passion Fruit', 'Fresh passion fruit grown in greenhouse conditions.', 326.68, 'fruit', 20, 'passion_fruit.jpg', '2026-09-21 02:22:34'),
+(60, 8, 'Tomato', 'Fresh tomato grown in greenhouse conditions.', 80.56, 'vegetable', 30, 'tomato.jpg', '2026-09-21 02:22:34'),
+(61, 8, 'Aloe Vera', 'Aloe Vera - a popular succulent plant.', 402.67, 'plant', 10, 'aloe_vera.jpg', '2026-09-21 02:22:34'),
+(62, 9, 'Strawberry', 'Fresh strawberry grown in greenhouse conditions.', 250.00, 'fruit', 40, 'strawberries.jpg', '2026-09-21 02:22:34'),
+(63, 9, 'Carrot', 'Fresh carrot grown in greenhouse conditions.', 72.48, 'vegetable', 50, 'carrot.jpg', '2026-09-21 02:22:34'),
+(64, 9, 'Snake Plant', 'Snake Plant - a popular indoor plant.', 721.57, 'plant', 15, 'snake_plant.jpg', '2026-09-21 02:22:34'),
+(65, 10, 'Papaya', 'Fresh papaya grown in greenhouse conditions.', 180.00, 'fruit', 25, 'papaya.jpg', '2026-09-21 02:22:34'),
+(66, 10, 'Brinjal', 'Fresh brinjal grown in greenhouse conditions.', 80.56, 'vegetable', 30, 'brinjal.jpg', '2026-09-21 02:22:34'),
+(67, 10, 'Jasmine', 'Jasmine - a popular flowering plant.', 765.76, 'plant', 10, 'jasmine.jpg', '2026-09-21 02:22:34');
 
--- --------------------------------------------------------
-
---
 -- Table structure for table `reviews`
---
 
 CREATE TABLE `reviews` (
   `id` int(11) NOT NULL,
@@ -274,11 +224,7 @@ CREATE TABLE `reviews` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
---
 -- Table structure for table `stores`
---
 
 CREATE TABLE `stores` (
   `id` int(11) NOT NULL,
@@ -290,19 +236,21 @@ CREATE TABLE `stores` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
 -- Dumping data for table `stores`
---
 
 INSERT INTO `stores` (`id`, `owner_id`, `store_name`, `description`, `city`, `image`, `created_at`) VALUES
-(1, 2, 'Green Thumb Nursery', 'Specializing in organic vegetables and rare plants.', 'Los Angeles', NULL, '2026-09-01 15:24:48'),
-(2, 3, 'Fresh Harvest Greenhouse', 'Locally grown fruits and seasonal veggies.', 'San Francisco', NULL, '2026-09-01 15:24:48');
+(1, 2, 'Green Thumb Nursery', 'Specializing in organic vegetables and rare plants.', 'Los Angeles', 'store1.jpg', '2026-09-01 20:54:48'),
+(2, 3, 'Fresh Harvest Greenhouse', 'Locally grown fruits and seasonal veggies.', 'San Francisco', 'store2.jpg', '2026-09-01 20:54:48'),
+(5, 6, 'Rajapaksha Crop Hub', 'Fresh crops and plants from Kurunegala.', 'Kurunegala', 'store3.jpg', '2026-09-21 01:48:32'),
+(6, 7, 'Ekanayake Agro Farm', 'Quality agro products from Gampaha.', 'Gampaha', 'store4.jpg', '2026-09-21 01:48:32'),
+(7, 8, 'Wijesinghe Green Acres', 'Organic farm fresh produce from Rathnapura.', 'Rathnapura', 'store5.jpg', '2026-09-21 01:48:32'),
+(8, 6, 'Kodikara Plant Co', 'Quality plants and vegetables from Kurunegala.', 'Kurunegala', 'store8.jpg', '2026-09-21 01:58:40'),
+(9, 7, 'Liyanage Organic Farm', 'Fresh organic produce from Gampaha.', 'Gampaha', 'store9.jpg', '2026-09-21 01:58:40'),
+(10, 8, 'Weerasinghe Garden Fresh', 'Premium greenhouse products from Rathnapura.', 'Rathnapura', 'store10.jpg', '2026-09-21 01:58:40'),
+(11, 3, 'Mendis Organic Farm', 'Fresh organic produce from Anuradhapura.', 'Anuradhapura', 'store6.jpg', '2026-09-21 01:58:40'),
+(12, 2, 'Perera Garden Fresh', 'Premium greenhouse products from Hambantota.', 'Hambantota', 'store7.jpg', '2026-09-21 01:58:40');
 
--- --------------------------------------------------------
-
---
 -- Table structure for table `users`
---
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
@@ -316,22 +264,22 @@ CREATE TABLE `users` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
 -- Dumping data for table `users`
---
 
 INSERT INTO `users` (`id`, `full_name`, `email`, `password`, `role`, `city`, `address`, `gap_certificate`, `created_at`) VALUES
-(1, 'Super Admin', 'admin@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'New York', 'Admin HQ', NULL, '2026-09-01 15:24:48'),
-(2, 'Green Thumb Owner', 'owner1@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'Los Angeles', '123 Farm Lane, LA', 'gap_cert_owner1.pdf', '2026-09-01 15:24:48'),
-(3, 'Fresh Harvest Owner', 'owner2@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'San Francisco', '456 Green Street, SF', 'gap_cert_owner2.pdf', '2026-09-01 15:24:48'),
-(4, 'John Buyer', 'customer1@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'customer', 'Los Angeles', '789 Home Ave, LA', NULL, '2026-09-01 15:24:48'),
-(5, 'Jane Shopper', 'customer2@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'customer', 'San Diego', '101 Buyer Street, SD', NULL, '2026-09-01 15:24:48');
+(1, 'Super Admin', 'admin@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'New York', 'Admin HQ', NULL, '2026-09-01 20:54:48'),
+(2, 'Green Thumb Owner', 'owner1@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'Los Angeles', '123 Farm Lane, LA', 'gap_cert_owner1.pdf', '2026-09-01 20:54:48'),
+(3, 'Fresh Harvest Owner', 'owner2@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'San Francisco', '456 Green Street, SF', 'gap_cert_owner2.pdf', '2026-09-01 20:54:48'),
+(4, 'John Buyer', 'customer1@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'customer', 'Los Angeles', '789 Home Ave, LA', NULL, '2026-09-01 20:54:48'),
+(5, 'Jane Shopper', 'customer2@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'customer', 'San Diego', '101 Buyer Street, SD', NULL, '2026-09-01 20:54:48'),
+(6, 'Rajapaksha Owner', 'owner3@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'Kurunegala', 'No.60, School Lane, Kurunegala', 'gap_cert_owner3.pdf', '2026-09-21 01:48:32'),
+(7, 'Kodikara Owner', 'owner4@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'Gampaha', 'No.179, Park Road, Gampaha', 'gap_cert_owner4.pdf', '2026-09-21 01:48:32'),
+(8, 'Ekanayake Owner', 'owner5@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'Rathnapura', 'No.27, Lake View, Rathnapura', 'gap_cert_owner5.pdf', '2026-09-21 01:48:32'),
+(9, 'Kodikara Owner', 'owner6@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'Kurunegala', 'No.108, Garden Lane, Kurunegala', 'gap_cert_owner6.pdf', '2026-09-21 02:28:04'),
+(10, 'Liyanage Owner', 'owner7@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'Gampaha', 'No.68, Temple Road, Gampaha', 'gap_cert_owner7.pdf', '2026-09-21 02:28:04'),
+(11, 'Weerasinghe Owner', 'owner8@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'Rathnapura', 'No.142, Hill View, Rathnapura', 'gap_cert_owner8.pdf', '2026-09-21 02:28:04');
 
--- --------------------------------------------------------
-
---
 -- Table structure for table `user_recommendations`
---
 
 CREATE TABLE `user_recommendations` (
   `id` int(11) NOT NULL,
@@ -344,298 +292,216 @@ CREATE TABLE `user_recommendations` (
   `is_saved` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
 -- Indexes for dumped tables
---
 
---
 -- Indexes for table `admin_warnings`
---
+
 ALTER TABLE `admin_warnings`
   ADD PRIMARY KEY (`id`),
   ADD KEY `admin_id` (`admin_id`),
   ADD KEY `owner_id` (`owner_id`);
 
---
 -- Indexes for table `agro_ecological_zones`
---
+
 ALTER TABLE `agro_ecological_zones`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `district` (`district`),
   ADD KEY `idx_district` (`district`);
 
---
 -- Indexes for table `cart`
---
+
 ALTER TABLE `cart`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`),
   ADD KEY `product_id` (`product_id`);
 
---
--- Indexes for table `memberships`
---
-ALTER TABLE `memberships`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `order_id` (`order_id`),
-  ADD KEY `idx_user_id` (`user_id`),
-  ADD KEY `idx_status` (`status`);
-
---
 -- Indexes for table `notifications`
---
+
 ALTER TABLE `notifications`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
 
---
 -- Indexes for table `orders`
---
+
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `order_reference` (`order_reference`),
   ADD KEY `customer_id` (`customer_id`),
   ADD KEY `store_id` (`store_id`);
 
---
 -- Indexes for table `order_items`
---
+
 ALTER TABLE `order_items`
   ADD PRIMARY KEY (`id`),
   ADD KEY `order_id` (`order_id`),
   ADD KEY `product_id` (`product_id`);
 
---
--- Indexes for table `payment_transactions`
---
-ALTER TABLE `payment_transactions`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `order_id` (`order_id`),
-  ADD KEY `idx_order_id` (`order_id`),
-  ADD KEY `idx_user_id` (`user_id`),
-  ADD KEY `idx_status` (`status`);
-
---
 -- Indexes for table `plant_growing_advice`
---
+
 ALTER TABLE `plant_growing_advice`
   ADD PRIMARY KEY (`id`),
   ADD KEY `plant_id` (`plant_id`);
 
---
 -- Indexes for table `plant_recommendations`
---
+
 ALTER TABLE `plant_recommendations`
   ADD PRIMARY KEY (`id`);
 
---
 -- Indexes for table `products`
---
+
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`),
   ADD KEY `store_id` (`store_id`);
 
---
 -- Indexes for table `reviews`
---
+
 ALTER TABLE `reviews`
   ADD PRIMARY KEY (`id`),
   ADD KEY `store_id` (`store_id`),
   ADD KEY `user_id` (`user_id`);
 
---
 -- Indexes for table `stores`
---
+
 ALTER TABLE `stores`
   ADD PRIMARY KEY (`id`),
   ADD KEY `owner_id` (`owner_id`);
 
---
 -- Indexes for table `users`
---
+
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
---
 -- Indexes for table `user_recommendations`
---
+
 ALTER TABLE `user_recommendations`
   ADD PRIMARY KEY (`id`),
   ADD KEY `idx_user_id` (`user_id`),
   ADD KEY `plant_id` (`plant_id`);
 
---
 -- AUTO_INCREMENT for dumped tables
---
 
---
 -- AUTO_INCREMENT for table `admin_warnings`
---
+
 ALTER TABLE `admin_warnings`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
---
 -- AUTO_INCREMENT for table `agro_ecological_zones`
---
+
 ALTER TABLE `agro_ecological_zones`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
---
 -- AUTO_INCREMENT for table `cart`
---
+
 ALTER TABLE `cart`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT for table `memberships`
---
-ALTER TABLE `memberships`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `notifications`
---
+
 ALTER TABLE `notifications`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
---
 -- AUTO_INCREMENT for table `orders`
---
+
 ALTER TABLE `orders`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
---
 -- AUTO_INCREMENT for table `order_items`
---
+
 ALTER TABLE `order_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT for table `payment_transactions`
---
-ALTER TABLE `payment_transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `plant_growing_advice`
---
+
 ALTER TABLE `plant_growing_advice`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
---
 -- AUTO_INCREMENT for table `plant_recommendations`
---
+
 ALTER TABLE `plant_recommendations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
---
 -- AUTO_INCREMENT for table `products`
---
-ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
---
+ALTER TABLE `products`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+
 -- AUTO_INCREMENT for table `reviews`
---
+
 ALTER TABLE `reviews`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
---
 -- AUTO_INCREMENT for table `stores`
---
+
 ALTER TABLE `stores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
---
 -- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
---
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
 -- AUTO_INCREMENT for table `user_recommendations`
---
+
 ALTER TABLE `user_recommendations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
---
 -- Constraints for dumped tables
---
 
---
 -- Constraints for table `admin_warnings`
---
+
 ALTER TABLE `admin_warnings`
   ADD CONSTRAINT `admin_warnings_ibfk_1` FOREIGN KEY (`admin_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `admin_warnings_ibfk_2` FOREIGN KEY (`owner_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
---
 -- Constraints for table `cart`
---
+
 ALTER TABLE `cart`
   ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 
---
--- Constraints for table `memberships`
---
-ALTER TABLE `memberships`
-  ADD CONSTRAINT `memberships_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
-
---
 -- Constraints for table `notifications`
---
+
 ALTER TABLE `notifications`
   ADD CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
---
 -- Constraints for table `orders`
---
+
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE;
 
---
 -- Constraints for table `order_items`
---
+
 ALTER TABLE `order_items`
   ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 
---
 -- Constraints for table `plant_growing_advice`
---
+
 ALTER TABLE `plant_growing_advice`
   ADD CONSTRAINT `plant_growing_advice_ibfk_1` FOREIGN KEY (`plant_id`) REFERENCES `plant_recommendations` (`id`) ON DELETE CASCADE;
 
---
 -- Constraints for table `products`
---
+
 ALTER TABLE `products`
   ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE;
 
---
 -- Constraints for table `reviews`
---
+
 ALTER TABLE `reviews`
   ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
---
 -- Constraints for table `stores`
---
+
 ALTER TABLE `stores`
   ADD CONSTRAINT `stores_ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
---
 -- Constraints for table `user_recommendations`
---
+
 ALTER TABLE `user_recommendations`
   ADD CONSTRAINT `user_recommendations_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `user_recommendations_ibfk_2` FOREIGN KEY (`plant_id`) REFERENCES `plant_recommendations` (`id`) ON DELETE CASCADE;
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

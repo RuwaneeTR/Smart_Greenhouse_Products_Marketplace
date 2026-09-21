@@ -2,11 +2,6 @@
 
 <div class="main-wrapper">
 
-    <!-- =====================================================
-         HERO SECTION
-         Search bar connects to stores.php
-         Buttons connect to login/register pages
-         ===================================================== -->
     <section class="hero">
         <div class="hero-content">
             <h1>Cultivating Life, <br> One Seed at a Time.</h1>
@@ -35,10 +30,7 @@
         </div>
     </section>
 
-    <!-- =====================================================
-         EXPLORE SECTION (top row)
-         Cards link to products and plants pages
-         ===================================================== -->
+    <!-- Explore section (top row) - Cards link to products and plants pages -->
     <section class="explore-section">
         <h2>Explore the Greenhouse</h2>
         <div class="card-grid">
@@ -62,10 +54,7 @@
         </div>
     </section>
 
-    <!-- =====================================================
-         CONNECT SECTION (bottom row)
-         Find Stores links to stores.php
-         ===================================================== -->
+    <!-- Connect section (bottom row) - Find Stores links to stores.php -->
     <section class="connect-section">
         <a href="plants.php" class="card connect-card">
             <img src="static/images/image4.jpg" alt="Easy Composting">

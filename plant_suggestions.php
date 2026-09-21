@@ -1,8 +1,8 @@
 <?php
-// ============================================================
+
 // plant_suggestions.php - Live Search Suggestions for Plants
 // Called by JavaScript via AJAX as user types
-// ============================================================
+
 include 'includes/dbConnection.php';
 
 $query = isset($_GET['q']) ? trim($_GET['q']) : '';
