@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 21, 2026 at 02:37 PM
+-- Generation Time: Sep 21, 2026 at 08:35 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -93,6 +93,53 @@ CREATE TABLE `cart` (
   `quantity` int(11) NOT NULL DEFAULT 1,
   `added_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `gap_certificates`
+--
+
+CREATE TABLE `gap_certificates` (
+  `id` int(11) NOT NULL,
+  `gap_number` varchar(50) NOT NULL,
+  `holder_name` varchar(100) NOT NULL,
+  `issued_date` date DEFAULT NULL,
+  `expiry_date` date DEFAULT NULL,
+  `status` enum('valid','expired','revoked') DEFAULT 'valid',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `gap_certificates`
+--
+
+INSERT INTO `gap_certificates` (`id`, `gap_number`, `holder_name`, `issued_date`, `expiry_date`, `status`, `created_at`) VALUES
+(1, '261152319104756', 'Nadeesha Perera', '2026-06-02', '2029-06-01', 'valid', '2026-06-23 06:50:19'),
+(2, '261152319204753', 'Kasun Wickramasinghe', '2026-06-02', '2027-06-01', 'valid', '2026-06-23 06:50:19'),
+(3, '261152317104759', 'Ishara Rajapaksha', '2026-06-02', '2029-06-01', 'valid', '2026-06-23 06:50:19'),
+(4, '261152317204758', 'Tharindu Kodikara', '2026-06-02', '2027-06-01', 'valid', '2026-06-23 06:50:19'),
+(5, '261152305204611', 'Dilshan Ekanayake', '2026-05-15', '2027-05-14', 'valid', '2026-06-23 06:50:19'),
+(6, '261152319204686', 'Anusha Wijesinghe', '2026-05-25', '2027-05-24', 'valid', '2026-06-23 06:50:19'),
+(7, '261152319204708', 'Ravindu Liyanage', '2026-05-25', '2027-05-24', 'valid', '2026-06-23 06:50:19'),
+(8, '261152319204705', 'Chamodi Weerasinghe', '2026-05-25', '2027-05-24', 'valid', '2026-06-23 06:50:19'),
+(9, '261152312104376', 'Sahan Mendis', '2026-05-13', '2029-05-15', 'valid', '2026-06-23 06:50:19'),
+(10, '261152312104380', 'Hiruni Kumarasinghe', '2026-05-13', '2029-05-12', 'valid', '2026-06-23 06:50:19'),
+(11, '261152312104378', 'Pasindu Perera', '2026-05-13', '2029-05-12', 'valid', '2026-06-23 06:50:19'),
+(12, '261152305303250', 'Sewmini Wickramasinghe', '2026-05-15', '2027-05-14', 'valid', '2026-06-23 06:50:19'),
+(13, '261152315104642', 'Lakshan Rajapaksha', '2026-05-15', '2029-05-14', 'valid', '2026-06-23 06:50:19'),
+(14, '261152305304281', 'Vinuri Kodikara', '2026-05-15', '2027-05-14', 'valid', '2026-06-23 06:50:19'),
+(15, '261152303304691', 'Yohan Ekanayake', '2026-05-08', '2027-05-07', 'valid', '2026-06-23 06:50:19'),
+(16, '261152317104644', 'Senuri Wijesinghe', '2026-05-04', '2027-05-03', 'valid', '2026-06-23 06:50:19'),
+(17, '261152323204634', 'Tharusha Liyanage', '2026-04-21', '2027-04-20', 'valid', '2026-06-23 06:50:19'),
+(18, '261152305202643', 'Imesha Weerasinghe', '2026-04-21', '2027-04-20', 'valid', '2026-06-23 06:50:19'),
+(19, '261152304104499', 'Dinesh Mendis', '2026-04-02', '2029-04-01', 'valid', '2026-06-23 06:50:19'),
+(20, '261152310204631', 'Kavindi Kumarasinghe', '2026-04-21', '2027-04-20', 'valid', '2026-06-23 06:50:19'),
+(21, '261152318101450', 'Nimal Perera', '2026-03-30', '2027-03-29', 'valid', '2026-06-23 06:50:19'),
+(22, '261152315204651', 'Sanduni Wickramasinghe', '2026-03-12', '2027-03-11', 'valid', '2026-06-23 06:50:19'),
+(23, '261152311204510', 'Ruwan Rajapaksha', '2026-01-01', '2026-12-31', 'valid', '2026-06-23 06:50:19'),
+(24, '261152307103731', 'Dilini Kodikara', '2026-01-07', '2027-01-06', 'valid', '2026-06-23 06:50:19'),
+(25, '261152314104551', 'Chathura Ekanayake', '2026-01-21', '2027-01-20', 'valid', '2026-06-23 06:50:19');
 
 -- --------------------------------------------------------
 
@@ -389,6 +436,12 @@ ALTER TABLE `cart`
   ADD KEY `product_id` (`product_id`);
 
 --
+-- Indexes for table `gap_certificates`
+--
+ALTER TABLE `gap_certificates`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `notifications`
 --
 ALTER TABLE `notifications`
@@ -484,6 +537,12 @@ ALTER TABLE `agro_ecological_zones`
 --
 ALTER TABLE `cart`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `gap_certificates`
+--
+ALTER TABLE `gap_certificates`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `notifications`
