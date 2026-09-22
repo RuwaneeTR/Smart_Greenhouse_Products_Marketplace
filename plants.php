@@ -555,7 +555,7 @@ if ($plant['quantity'] <= 0) {
 
                 <!-- Action Buttons -->
                 <div class="plant-detail-btns">
-                    <?php if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'customer'): ?>
+                    <?php if (isset($_SESSION['user_id']) && ($_SESSION['role'] ?? '') === 'customer'): ?>
                         <a href="cart.php?add=<?php echo $plant['id']; ?>&qty=1"
                            id="addToCartBtn"
                            class="btn btn-outline plant-cart-btn">
@@ -567,7 +567,7 @@ if ($plant['quantity'] <= 0) {
                             <i class="fas fa-bolt"></i> Buy Now
                         </a>
                     <?php else: ?>
-                        <a href="login.php" class="btn btn-outline plant-cart-btn">
+                        <a href="/Smart_Greenhouse_Products_Marketplace/login/login.php" class="btn btn-outline plant-cart-btn">
                             <i class="fas fa-lock"></i> Login to Purchase
                         </a>
                     <?php endif; ?>

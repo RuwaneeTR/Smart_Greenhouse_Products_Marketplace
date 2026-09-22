@@ -369,7 +369,7 @@ $reviews = $stmtReviews->fetchAll();
 $alreadyReviewed = false;
 $canReview = false;
 
-if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'customer') {
+if (isset($_SESSION['user_id']) && ($_SESSION['role'] ?? '') === 'customer') {
     $stmtCheck = $pdo->prepare("SELECT id FROM reviews WHERE store_id = :store_id AND user_id = :user_id");
     $stmtCheck->execute(['store_id' => $store_id, 'user_id' => $_SESSION['user_id']]);
     $alreadyReviewed = $stmtCheck->fetch() ? true : false;

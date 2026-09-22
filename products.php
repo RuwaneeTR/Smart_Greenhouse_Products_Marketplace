@@ -409,7 +409,7 @@ if ($product['quantity'] <= 0) {
 <!-- Action Buttons -->
 <?php if ($product['quantity'] > 0): ?>
     <div class="product-detail-btns">
-        <?php if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'customer'): ?>
+        <<?php if (isset($_SESSION['user_id']) && ($_SESSION['role'] ?? '') === 'customer'): ?>
             <a href="cart.php?add=<?php echo $product['id']; ?>&qty=1"
                id="addToCartBtn"
                class="btn btn-outline add-to-cart-btn">
