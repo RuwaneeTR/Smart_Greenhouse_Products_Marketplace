@@ -428,9 +428,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_review'])) {
     <div class="store-name-info">
         <div class="store-title-row">
             <h1><?php echo htmlspecialchars($store['store_name']); ?></h1>
-            <?php if (!empty($store['gap_certificate'])): ?>
-                <span class="gap-badge"><i class="fas fa-check-circle"></i> GAP CERTIFIED</span>
-            <?php endif; ?>
+            <?php if ($store['status'] === 'active'): ?>
+    <span class="gap-badge"><i class="fas fa-check-circle"></i> GAP CERTIFIED</span>
+<?php endif; ?>
         </div>
         <p class="store-meta-line">
             <span><i class="fas fa-user"></i> Managed by <?php echo htmlspecialchars($store['owner_name']); ?></span>

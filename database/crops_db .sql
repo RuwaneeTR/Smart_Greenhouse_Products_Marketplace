@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 21, 2026 at 08:35 PM
+-- Generation Time: Sep 22, 2026 at 01:00 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -287,21 +287,12 @@ INSERT INTO `products` (`id`, `store_id`, `name`, `description`, `price`, `categ
 (45, 5, 'Cabbage', 'Fresh cabbage grown in greenhouse conditions.', 174.77, 'vegetable', 25, 'cabbage.jpg', '2026-09-21 02:22:04'),
 (51, 7, 'Snake Gourd', 'Fresh snake gourd grown in greenhouse conditions.', 361.68, 'vegetable', 30, 'snake_gourd.jpg', '2026-09-21 02:22:04'),
 (52, 7, 'Bougainvillea', 'Bougainvillea - a popular flowering plant.', 997.73, 'plant', 40, 'bougainvillea.jpg', '2026-09-21 02:22:04'),
-(53, 11, 'Mango', 'Fresh mango grown in greenhouse conditions.', 372.85, 'fruit', 30, 'mango.jpg', '2026-09-21 02:22:04'),
-(54, 11, 'Long Bean', 'Fresh long bean grown in greenhouse conditions.', 215.92, 'vegetable', 30, 'long_bean.jpg', '2026-09-21 02:22:04'),
-(55, 11, 'Money Plant', 'Money Plant - a popular indoor plant.', 1136.48, 'plant', 10, 'money_plant.jpg', '2026-09-21 02:22:04'),
-(56, 12, 'Banana', 'Fresh banana grown in greenhouse conditions.', 464.00, 'fruit', 20, 'banana.jpg', '2026-09-21 02:22:04'),
-(57, 12, 'Pineapple', 'Fresh pineapple grown in greenhouse conditions.', 92.71, 'fruit', 30, 'pineapple.jpg', '2026-09-21 02:22:04'),
-(58, 12, 'Areca Palm', 'Areca Palm - a popular indoor plant.', 1076.97, 'plant', 20, 'areca_palm.jpg', '2026-09-21 02:22:04'),
 (59, 8, 'Passion Fruit', 'Fresh passion fruit grown in greenhouse conditions.', 326.68, 'fruit', 20, 'passion_fruit.jpg', '2026-09-21 02:22:34'),
 (60, 8, 'Tomato', 'Fresh tomato grown in greenhouse conditions.', 80.56, 'vegetable', 30, 'tomato.jpg', '2026-09-21 02:22:34'),
 (61, 8, 'Aloe Vera', 'Aloe Vera - a popular succulent plant.', 402.67, 'plant', 10, 'aloe_vera.jpg', '2026-09-21 02:22:34'),
 (62, 9, 'Strawberry', 'Fresh strawberry grown in greenhouse conditions.', 250.00, 'fruit', 40, 'strawberries.jpg', '2026-09-21 02:22:34'),
 (63, 9, 'Carrot', 'Fresh carrot grown in greenhouse conditions.', 72.48, 'vegetable', 50, 'carrot.jpg', '2026-09-21 02:22:34'),
-(64, 9, 'Snake Plant', 'Snake Plant - a popular indoor plant.', 721.57, 'plant', 15, 'snake_plant.jpg', '2026-09-21 02:22:34'),
-(65, 10, 'Papaya', 'Fresh papaya grown in greenhouse conditions.', 180.00, 'fruit', 25, 'papaya.jpg', '2026-09-21 02:22:34'),
-(66, 10, 'Brinjal', 'Fresh brinjal grown in greenhouse conditions.', 80.56, 'vegetable', 30, 'brinjal.jpg', '2026-09-21 02:22:34'),
-(67, 10, 'Jasmine', 'Jasmine - a popular flowering plant.', 765.76, 'plant', 10, 'jasmine.jpg', '2026-09-21 02:22:34');
+(64, 9, 'Snake Plant', 'Snake Plant - a popular indoor plant.', 721.57, 'plant', 15, 'snake_plant.jpg', '2026-09-21 02:22:34');
 
 -- --------------------------------------------------------
 
@@ -332,6 +323,7 @@ CREATE TABLE `stores` (
   `description` text DEFAULT NULL,
   `city` varchar(50) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
+  `status` enum('active','pending') NOT NULL DEFAULT 'pending',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -339,19 +331,18 @@ CREATE TABLE `stores` (
 -- Dumping data for table `stores`
 --
 
-INSERT INTO `stores` (`id`, `owner_id`, `store_name`, `description`, `city`, `image`, `created_at`) VALUES
-(1, 2, 'Green Thumb Nursery', 'Specializing in organic vegetables and rare plants.', 'Los Angeles', 'store1.jpg', '2026-09-01 20:54:48'),
-(2, 3, 'Fresh Harvest Greenhouse', 'Locally grown fruits and seasonal veggies.', 'San Francisco', 'store2.jpg', '2026-09-01 20:54:48'),
-(5, 6, 'Rajapaksha Crop Hub', 'Fresh crops and plants from Kurunegala.', 'Kurunegala', 'store3.jpg', '2026-09-21 01:48:32'),
-(6, 7, 'Ekanayake Agro Farm', 'Quality agro products from Gampaha.', 'Gampaha', 'store4.jpg', '2026-09-21 01:48:32'),
-(7, 8, 'Wijesinghe Green Acres', 'Organic farm fresh produce from Rathnapura.', 'Rathnapura', 'store5.jpg', '2026-09-21 01:48:32'),
-(8, 6, 'Kodikara Plant Co', 'Quality plants and vegetables from Kurunegala.', 'Kurunegala', 'store8.jpg', '2026-09-21 01:58:40'),
-(9, 7, 'Liyanage Organic Farm', 'Fresh organic produce from Gampaha.', 'Gampaha', 'store9.jpg', '2026-09-21 01:58:40'),
-(10, 8, 'Weerasinghe Garden Fresh', 'Premium greenhouse products from Rathnapura.', 'Rathnapura', 'store10.jpg', '2026-09-21 01:58:40'),
-(11, 3, 'Mendis Organic Farm', 'Fresh organic produce from Anuradhapura.', 'Anuradhapura', 'store6.jpg', '2026-09-21 01:58:40'),
-(12, 2, 'Perera Garden Fresh', 'Premium greenhouse products from Hambantota.', 'Hambantota', 'store7.jpg', '2026-09-21 01:58:40'),
-(13, 12, 'Perera Green Acres', NULL, 'Anuradhapura', 'store11.jpg', '2026-06-23 06:50:19'),
-(14, 13, 'Wickramasinghe Garden Fresh', NULL, 'Gampaha', 'store12.jpg', '2026-06-23 06:50:19');
+INSERT INTO `stores` (`id`, `owner_id`, `store_name`, `description`, `city`, `image`, `status`, `created_at`) VALUES
+(1, 2, 'Perera Garden Fresh', 'Premium organic vegetables and rare plants from Hambantota.', 'Hambantota', 'store1.jpg', 'pending', '2026-09-01 20:54:48'),
+(2, 3, 'Wickramasinghe Plant Co', 'Locally grown fruits and seasonal veggies from Rathnapura.', 'Rathnapura', 'store2.jpg', 'pending', '2026-09-01 20:54:48'),
+(5, 6, 'Rajapaksha Crop Hub', 'Fresh crops and plants from Kurunegala.', 'Kurunegala', 'store3.jpg', 'pending', '2026-09-21 01:48:32'),
+(6, 7, 'Kodikara Plant Co', 'Quality agro products from Kurunegala.', 'Kurunegala', 'store4.jpg', 'pending', '2026-09-21 01:48:32'),
+(7, 8, 'Ekanayake Agro Farm', 'Organic farm fresh produce from Gampaha.', 'Gampaha', 'store5.jpg', 'pending', '2026-09-21 01:48:32'),
+(8, 6, 'Wijesinghe Green Acres', 'Quality plants and vegetables from Rathnapura.', 'Rathnapura', 'store8.jpg', 'pending', '2026-09-21 01:58:40'),
+(9, 7, 'Liyanage Organic Farm', 'Fresh organic produce from Rathnapura.', 'Rathnapura', 'store9.jpg', 'pending', '2026-09-21 01:58:40'),
+(10, 8, 'Weerasinghe Garden Fresh', 'Premium greenhouse products from Rathnapura.', 'Rathnapura', 'store10.jpg', 'pending', '2026-09-20 20:28:40'),
+(11, 3, 'Mendis Organic Farm', 'Fresh organic produce from Anuradhapura.', 'Anuradhapura', 'store6.jpg', 'pending', '2026-09-20 20:28:40'),
+(12, 8, 'Ekanayake Harvest Farm', 'Fresh produce by GAP certified grower Dilshan Ekanayake.', 'Rathnapura', 'store10.jpg', 'pending', '2026-09-20 20:28:40'),
+(13, 6, 'Rajapaksha Green Garden', 'Quality vegetables from GAP certified grower Ishara Rajapaksha.', 'Kurunegala', 'store11.jpg', 'pending', '2026-09-20 20:28:40');
 
 -- --------------------------------------------------------
 
@@ -368,6 +359,7 @@ CREATE TABLE `users` (
   `city` varchar(50) NOT NULL,
   `address` text DEFAULT NULL,
   `gap_certificate` varchar(255) DEFAULT NULL,
+  `gap_number` varchar(50) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -375,20 +367,20 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `full_name`, `email`, `password`, `role`, `city`, `address`, `gap_certificate`, `created_at`) VALUES
-(1, 'Super Admin', 'admin@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'New York', 'Admin HQ', NULL, '2026-09-01 20:54:48'),
-(2, 'Green Thumb Owner', 'owner1@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'Los Angeles', '123 Farm Lane, LA', 'gap_cert_owner1.pdf', '2026-09-01 20:54:48'),
-(3, 'Fresh Harvest Owner', 'owner2@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'San Francisco', '456 Green Street, SF', 'gap_cert_owner2.pdf', '2026-09-01 20:54:48'),
-(4, 'John Buyer', 'customer1@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'customer', 'Los Angeles', '789 Home Ave, LA', NULL, '2026-09-01 20:54:48'),
-(5, 'Jane Shopper', 'customer2@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'customer', 'San Diego', '101 Buyer Street, SD', NULL, '2026-09-01 20:54:48'),
-(6, 'Rajapaksha Owner', 'owner3@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'Kurunegala', 'No.60, School Lane, Kurunegala', 'gap_cert_owner3.pdf', '2026-09-21 01:48:32'),
-(7, 'Kodikara Owner', 'owner4@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'Gampaha', 'No.179, Park Road, Gampaha', 'gap_cert_owner4.pdf', '2026-09-21 01:48:32'),
-(8, 'Ekanayake Owner', 'owner5@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'Rathnapura', 'No.27, Lake View, Rathnapura', 'gap_cert_owner5.pdf', '2026-09-21 01:48:32'),
-(9, 'Kodikara Owner', 'owner6@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'Kurunegala', 'No.108, Garden Lane, Kurunegala', 'gap_cert_owner6.pdf', '2026-09-21 02:28:04'),
-(10, 'Liyanage Owner', 'owner7@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'Gampaha', 'No.68, Temple Road, Gampaha', 'gap_cert_owner7.pdf', '2026-09-21 02:28:04'),
-(11, 'Weerasinghe Owner', 'owner8@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'Rathnapura', 'No.142, Hill View, Rathnapura', 'gap_cert_owner8.pdf', '2026-09-21 02:28:04'),
-(12, 'Perera Owner', 'pereragreenacres10@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'Anuradhapura', 'No.42, River Side, Anuradhapura', NULL, '2026-06-23 06:50:19'),
-(13, 'Wickramasinghe Owner', 'wickramasinghegardenfresh11@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'Gampaha', 'No.156, Main Street, Gampaha', NULL, '2026-06-23 06:50:19');
+INSERT INTO `users` (`id`, `full_name`, `email`, `password`, `role`, `city`, `address`, `gap_certificate`, `gap_number`, `created_at`) VALUES
+(1, 'Super Admin', 'admin@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'New York', 'Admin HQ', NULL, NULL, '2026-09-01 20:54:48'),
+(2, 'Nadeesha Perera', 'nadeesha.perera@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'Hambantota', 'No.7, Hill View, Hambantota', 'gap_cert_owner1.pdf', NULL, '2026-09-01 20:54:48'),
+(3, 'Kasun Wickramasinghe', 'kasun.wickramasinghe@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'Rathnapura', 'No.23, New Town, Rathnapura', 'gap_cert_owner2.pdf', NULL, '2026-09-01 20:54:48'),
+(4, 'Sahan Mendis', 'sahan.mendis@gmail.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'customer', 'Anuradhapura', 'No.50, Lake View, Anuradhapura', NULL, NULL, '2026-09-01 20:54:48'),
+(5, 'Hiruni Kumarasinghe', 'hiruni.kumarasinghe@gmail.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'customer', 'Colombo', 'No.60, Lake View, Colombo', NULL, NULL, '2026-09-01 20:54:48'),
+(6, 'Ishara Rajapaksha', 'ishara.rajapaksha@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'Kurunegala', 'No.60, School Lane, Kurunegala', 'gap_cert_owner3.pdf', NULL, '2026-09-21 01:48:32'),
+(7, 'Tharindu Kodikara', 'tharindu.kodikara@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'Kurunegala', 'No.108, Garden Lane, Kurunegala', 'gap_cert_owner4.pdf', NULL, '2026-09-21 01:48:32'),
+(8, 'Dilshan Ekanayake', 'dilshan.ekanayake@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'Gampaha', 'No.179, Park Road, Gampaha', 'gap_cert_owner5.pdf', NULL, '2026-09-21 01:48:32'),
+(9, 'Anusha Wijesinghe', 'anusha.wijesinghe@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'Rathnapura', 'No.27, Lake View, Rathnapura', 'gap_cert_owner6.pdf', NULL, '2026-09-21 02:28:04'),
+(10, 'Ravindu Liyanage', 'ravindu.liyanage@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'Rathnapura', 'No.68, Temple Road, Rathnapura', 'gap_cert_owner7.pdf', NULL, '2026-09-21 02:28:04'),
+(11, 'Chamodi Weerasinghe', 'chamodi.weerasinghe@crops.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'Rathnapura', 'No.142, Hill View, Rathnapura', 'gap_cert_owner8.pdf', NULL, '2026-09-21 02:28:04'),
+(12, 'Perera Owner', 'pereragreenacres10@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'Anuradhapura', 'No.42, River Side, Anuradhapura', NULL, NULL, '2026-06-23 06:50:19'),
+(13, 'Wickramasinghe Owner', 'wickramasinghegardenfresh11@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'owner', 'Gampaha', 'No.156, Main Street, Gampaha', NULL, NULL, '2026-06-23 06:50:19');
 
 -- --------------------------------------------------------
 
@@ -590,7 +582,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `stores`
 --
 ALTER TABLE `stores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `users`
