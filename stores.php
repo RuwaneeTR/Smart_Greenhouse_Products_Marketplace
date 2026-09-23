@@ -1,18 +1,18 @@
 <?php
-
-// stores.php - Store Listing, Store Details in one file
+// ============================================================
+// stores.php - Store Listing + Store Details in one file
 // No ID = show all stores listing
 // With ID = show single store details
-
+// ============================================================
 include 'includes/header.php';
 include 'includes/dbConnection.php';
 
 // Get store ID from URL if exists
 $store_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
-
-//  View 1: Store listing (no ID in URL)
-
+// ============================================================
+// VIEW 1: STORE LISTING (no ID in URL)
+// ============================================================
 if ($store_id === 0) {
 
     // Get search input
@@ -59,7 +59,9 @@ if ($store_id === 0) {
     $stores = $stmt->fetchAll();
 ?>
 
-<!-- Store listing view -->
+<!-- ============================================================
+     STORE LISTING VIEW
+     ============================================================ -->
 <div class="main-wrapper">
 
     <div class="page-header">
@@ -122,7 +124,7 @@ if ($store_id === 0) {
 
                     <div class="store-card-image">
                         <?php if (!empty($store['image'])): ?>
-                            <img src="static/images/stores/<?php echo htmlspecialchars($store['image']); ?>"
+                            <img src="static/uploads/stores/<?php echo htmlspecialchars($store['image']); ?>"
                                  alt="<?php echo htmlspecialchars($store['store_name']); ?>">
                         <?php else: ?>
                             <img src="static/images/image2.jpg" alt="Store">
@@ -181,9 +183,9 @@ if ($store_id === 0) {
 </div>
 
 <?php
-
-// Listing view - css and js
-
+// ============================================================
+// LISTING VIEW CSS + JS
+// ============================================================
 ?>
 <style>
     .page-header { margin-bottom: 24px; }
@@ -310,17 +312,16 @@ if ($store_id === 0) {
 include 'includes/footer.php';
 exit;
 
-} 
-// end if ($store_id === 0)
+} // end if ($store_id === 0)
 
-// View 2: Store details (ID given in URL)
+// STORE DETAILS (ID given in URL)
+
 
 // Fetch store details
 $stmtStore = $pdo->prepare("
     SELECT stores.*,
            users.full_name AS owner_name,
            users.email AS owner_email,
-           users.address AS owner_address,
            users.gap_certificate,
            COUNT(DISTINCT products.id) AS total_products,
            COUNT(DISTINCT orders.customer_id) AS happy_customers,
@@ -367,12 +368,13 @@ $reviews = $stmtReviews->fetchAll();
 $alreadyReviewed = false;
 $canReview = false;
 
-if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'customer') {
+if (isset($_SESSION['user_id']) && isset($_SESSION['role']) && $_SESSION['role'] === 'customer') {
     $stmtCheck = $pdo->prepare("SELECT id FROM reviews WHERE store_id = :store_id AND user_id = :user_id");
     $stmtCheck->execute(['store_id' => $store_id, 'user_id' => $_SESSION['user_id']]);
     $alreadyReviewed = $stmtCheck->fetch() ? true : false;
     $canReview = !$alreadyReviewed;
 }
+
 
 // Handle review submission
 $reviewSuccess = '';
@@ -401,7 +403,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_review'])) {
 }
 ?>
 
-<!-- Store details view -->
+<!-- ============================================================
+     STORE DETAILS VIEW
+     ============================================================ -->
 <div class="store-details-page">
 
     <!-- Back to stores link -->
@@ -414,7 +418,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_review'])) {
     <!-- Hero Banner -->
     <div class="store-hero">
         <?php if (!empty($store['image'])): ?>
-            <img src="static/images/stores/<?php echo htmlspecialchars($store['image']); ?>" alt="..." class="store-hero-img">
+            <img src="static/uploads/stores/<?php echo htmlspecialchars($store['image']); ?>" alt="<?php echo htmlspecialchars($store['store_name']); ?>" class="store-hero-img">
         <?php else: ?>
             <img src="static/images/image1.jpg" alt="Store" class="store-hero-img">
         <?php endif; ?>
@@ -424,20 +428,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_review'])) {
     <div class="main-wrapper">
 
         <!-- Store Name Bar -->
-<div class="store-name-bar">
-    <div class="store-name-info">
-        <div class="store-title-row">
-            <h1><?php echo htmlspecialchars($store['store_name']); ?></h1>
-            <?php if ($store['status'] === 'active'): ?>
-    <span class="gap-badge"><i class="fas fa-check-circle"></i> GAP CERTIFIED</span>
-<?php endif; ?>
+        <div class="store-name-bar">
+            <div class="store-logo-thumb">
+                <img src="static/images/logo.png" alt="Store">
+            </div>
+            <div class="store-name-info">
+                <div class="store-title-row">
+                    <h1><?php echo htmlspecialchars($store['store_name']); ?></h1>
+                    <?php if (!empty($store['gap_certificate'])): ?>
+                        <span class="gap-badge"><i class="fas fa-check-circle"></i> GAP CERTIFIED</span>
+                    <?php endif; ?>
+                </div>
+                <p class="store-meta-line">
+                    <span><i class="fas fa-user"></i> Managed by <?php echo htmlspecialchars($store['owner_name']); ?></span>
+                    <span><i class="fas fa-location-dot"></i> <?php echo htmlspecialchars($store['city']); ?></span>
+                </p>
+            </div>
         </div>
-        <p class="store-meta-line">
-            <span><i class="fas fa-user"></i> Managed by <?php echo htmlspecialchars($store['owner_name']); ?></span>
-            <span><i class="fas fa-location-dot"></i> <?php echo htmlspecialchars($store['city']); ?></span>
-        </p>
-    </div>
-</div>
 
         <!-- Stat Cards -->
         <div class="store-stats">
@@ -464,22 +471,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_review'])) {
             </div>
         </div>
 
-        <!-- About and Products -->
+        <!-- About + Products -->
         <div class="store-main-content">
             <div class="store-about">
                 <h3>About the Grower</h3>
                 <p><?php echo nl2br(htmlspecialchars($store['description'] ?? 'No description provided.')); ?></p>
                 <div class="store-contact-info">
-    <?php if (!empty($store['city'])): ?>
-        <p><i class="fas fa-location-dot"></i> <?php echo htmlspecialchars($store['city']); ?></p>
-    <?php endif; ?>
-    <?php if (!empty($store['owner_address'])): ?>
-        <p><i class="fas fa-map-marker-alt"></i> <?php echo htmlspecialchars($store['owner_address']); ?></p>
-    <?php endif; ?>
-    <?php if (!empty($store['owner_email'])): ?>
-        <p><i class="fas fa-envelope"></i> <a href="mailto:<?php echo htmlspecialchars($store['owner_email']); ?>"><?php echo htmlspecialchars($store['owner_email']); ?></a></p>
-    <?php endif; ?>
-</div>
+                    <?php if (!empty($store['owner_email'])): ?>
+                        <p><i class="fas fa-envelope"></i> <a href="mailto:<?php echo htmlspecialchars($store['owner_email']); ?>"><?php echo htmlspecialchars($store['owner_email']); ?></a></p>
+                    <?php endif; ?>
+                </div>
             </div>
 
             <div class="store-products">

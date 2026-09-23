@@ -1,17 +1,18 @@
 <?php
-
-// plants.php - Plants Listing, Plant Details in one file
+// ============================================================
+// plants.php - Plants Listing + Plant Details in one file
 // No ID = show all plants listing
 // With ID = show single plant details
-
+// ============================================================
 include 'includes/header.php';
 include 'includes/dbConnection.php';
 
 // Get plant/product ID from URL
 $plant_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
-// View 1: Plants listing (no ID in URL)
-
+// ============================================================
+// VIEW 1: PLANTS LISTING (no ID in URL)
+// ============================================================
 if ($plant_id === 0) {
 
     $search    = isset($_GET['search'])    ? trim($_GET['search'])    : '';
@@ -20,9 +21,9 @@ if ($plant_id === 0) {
 
     // Only fetch plants category
     $sql = "SELECT products.*, stores.store_name
-        FROM products
-        JOIN stores ON products.store_id = stores.id
-        WHERE products.category = 'plant'";
+            FROM products
+            JOIN stores ON products.store_id = stores.id
+            WHERE products.category = 'plant'";
 
     $params = [];
 
@@ -46,7 +47,9 @@ if ($plant_id === 0) {
     $plants = $stmt->fetchAll();
 ?>
 
-<!-- Plants listing view -->
+<!-- ============================================================
+     PLANTS LISTING VIEW
+     ============================================================ -->
 <div class="main-wrapper">
 
     <!-- Page Title -->
@@ -76,7 +79,7 @@ if ($plant_id === 0) {
         <p>Discover our curated selection of high-yield, resilient plants and top-quality vegetables and fruits tailored for your growing environment.</p>
     </div>
 
-    <!-- Search and Filter Row -->
+    <!-- Search + Filter Row -->
     <div class="plants-controls">
 
         <!-- Search -->
@@ -143,18 +146,18 @@ if ($plant_id === 0) {
 
                     <!-- Image -->
                     <div class="plant-card-img">
-    <?php if (!empty($plant['image'])): ?>
-        <img src="static/images/Products/<?php echo htmlspecialchars($plant['image']); ?>"
-             alt="<?php echo htmlspecialchars($plant['name']); ?>">
-    <?php else: ?>
-        <img src="static/images/image2.jpg" alt="Plant">
-    <?php endif; ?>
-</div>
+                        <?php if (!empty($plant['image'])): ?>
+                            <img src="static/uploads/products/<?php echo htmlspecialchars($plant['image']); ?>"
+                                 alt="<?php echo htmlspecialchars($plant['name']); ?>">
+                        <?php else: ?>
+                            <img src="static/images/image2.jpg" alt="Plant">
+                        <?php endif; ?>
+                    </div>
 
                     <!-- Card Info -->
                     <div class="plant-card-info">
 
-                        <!-- Name and Price row -->
+                        <!-- Name + Price row -->
                         <div class="plant-name-price">
                             <h3 class="plant-name"><?php echo htmlspecialchars($plant['name']); ?></h3>
                             <span class="plant-price">Rs. <?php echo number_format($plant['price'], 2); ?></span>
@@ -167,24 +170,21 @@ if ($plant_id === 0) {
                         </p>
 
                         <!-- Description - trimmed -->
-                        <?php
-// Use plant_recommendations description if available, otherwise fall back to product description
+                        <?php if (!empty($plant['description'])): ?>
+                            <div class="plant-why-fits">
+                                <p class="why-fits-label">
+                                    <i class="fas fa-check-circle"></i> Description
+                                </p>
+                                <p class="why-fits-text">
+                                    <?php
+                                        $desc = $plant['description'];
+                                        echo htmlspecialchars(strlen($desc) > 100 ? substr($desc, 0, 100).'...' : $desc);
+                                    ?>
+                                </p>
+                            </div>
+                        <?php endif; ?>
 
-if (!empty($plant['description'])): ?>
-    <div class="plant-why-fits">
-        <p class="why-fits-label">
-            <i class="fas fa-check-circle"></i> Description
-        </p>
-        <p class="why-fits-text">
-            <?php
-                $desc = $plant['description'];
-                echo htmlspecialchars(strlen($desc) > 100 ? substr($desc, 0, 100).'...' : $desc);
-            ?>
-        </p>
-    </div>
-<?php endif; ?>
-
-                        <!-- Stock and Add to Cart -->
+                        <!-- Stock + Add to Cart -->
                         <div class="plant-card-bottom">
                             <span class="plant-stock <?php echo $stockClass; ?>">
                                 <?php echo $stockLabel; ?>
@@ -326,7 +326,7 @@ if (!empty($plant['description'])): ?>
     /* Plant Info */
     .plant-card-info { padding: 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
 
-    /* Name and Price row */
+    /* Name + Price row */
     .plant-name-price { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
     .plant-name { font-size: 15px; font-weight: 700; color: var(--on-surface); line-height: 1.3; }
     .plant-price { font-size: 14px; font-weight: 700; color: var(--on-surface); white-space: nowrap; }
@@ -440,7 +440,9 @@ include 'includes/footer.php';
 exit;
 } // end listing view
 
-// View 2: Plant details (ID given in URL)
+// ============================================================
+// VIEW 2: PLANT DETAILS (ID given in URL)
+// ============================================================
 
 $stmtPlant = $pdo->prepare("
     SELECT products.*, stores.store_name, stores.city AS store_city, stores.id AS store_id
@@ -470,7 +472,9 @@ if ($plant['quantity'] <= 0) {
 }
 ?>
 
-<!-- Plant details view -->
+<!-- ============================================================
+     PLANT DETAILS VIEW
+     ============================================================ -->
 <div class="main-wrapper">
 
     <!-- Back link -->
@@ -480,17 +484,17 @@ if ($plant['quantity'] <= 0) {
 
     <div class="plant-detail-layout">
 
-        <!-- Left: Plant Image -->
+        <!-- LEFT: Plant Image -->
         <div class="plant-detail-img">
-    <?php if (!empty($plant['image'])): ?>
-        <img src="static/images/Products/<?php echo htmlspecialchars($plant['image']); ?>"
-             alt="<?php echo htmlspecialchars($plant['name']); ?>">
-    <?php else: ?>
-        <img src="static/images/image2.jpg" alt="Plant">
-    <?php endif; ?>
-</div>
+            <?php if (!empty($plant['image'])): ?>
+                <img src="static/uploads/products/<?php echo htmlspecialchars($plant['image']); ?>"
+                     alt="<?php echo htmlspecialchars($plant['name']); ?>">
+            <?php else: ?>
+                <img src="static/images/image2.jpg" alt="Plant">
+            <?php endif; ?>
+        </div>
 
-        <!-- Right: Plant Info -->
+        <!-- RIGHT: Plant Info -->
         <div class="plant-detail-info">
 
             <!-- Category tag -->
@@ -522,13 +526,13 @@ if ($plant['quantity'] <= 0) {
 
             <!-- Description -->
             <?php if (!empty($plant['description'])): ?>
-    <div class="plant-detail-desc-box">
-        <p class="plant-detail-desc-label">Description</p>
-        <p class="plant-detail-desc">
-            <?php echo nl2br(htmlspecialchars($plant['description'])); ?>
-        </p>
-    </div>
-<?php endif; ?>
+                <div class="plant-detail-desc-box">
+                    <p class="plant-detail-desc-label">Description</p>
+                    <p class="plant-detail-desc">
+                        <?php echo nl2br(htmlspecialchars($plant['description'])); ?>
+                    </p>
+                </div>
+            <?php endif; ?>
 
             <!-- Stock Status -->
             <span class="plant-detail-stock <?php echo $stockClass; ?>">
@@ -551,7 +555,7 @@ if ($plant['quantity'] <= 0) {
 
                 <!-- Action Buttons -->
                 <div class="plant-detail-btns">
-                    <?php if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'customer'): ?>
+                    <?php if (isset($_SESSION['user_id']) && isset($_SESSION['role']) && $_SESSION['role'] === 'customer'): ?>
                         <a href="cart.php?add=<?php echo $plant['id']; ?>&qty=1"
                            id="addToCartBtn"
                            class="btn btn-outline plant-cart-btn">

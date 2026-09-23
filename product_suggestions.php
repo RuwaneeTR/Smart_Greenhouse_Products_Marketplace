@@ -1,9 +1,9 @@
 <?php
-
+// ============================================================
 // product_suggestions.php - Live Search Suggestions for Products
 // Called by JavaScript via AJAX as user types
 // Returns matching products as JSON
-
+// ============================================================
 include 'includes/dbConnection.php';
 
 $query    = isset($_GET['q'])        ? trim($_GET['q'])   : '';

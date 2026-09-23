@@ -51,10 +51,11 @@ try {
 } catch (PDOException $e) {
     echo json_encode([
         'success' => false,
-        'error' => 'Failed to save transaction.'
+        'error' => 'DEBUG: ' . $e->getMessage()
     ]);
     exit;
 }
+
 
 // generate payhere hash
 

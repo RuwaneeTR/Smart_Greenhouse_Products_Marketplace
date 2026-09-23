@@ -1,0 +1,469 @@
+/* ==========================================================================
+   CropS – Incoming Order Confirmation Modal Dedicated Stylesheet
+   ========================================================================== */
+
+.incoming-order-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(15, 23, 42, 0.45);
+    backdrop-filter: blur(4px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.incoming-order-modal {
+    background-color: #ffffff;
+    border-radius: 18px;
+    padding: 28px;
+    max-width: 640px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    animation: modalAppear 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalAppear {
+    from {
+        transform: scale(0.96) translateY(10px);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-close-x {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: var(--text-muted, #8a948c);
+    cursor: pointer;
+    transition: color 0.2s ease;
+    line-height: 1;
+}
+
+.modal-close-x:hover {
+    color: var(--text-primary, #1a221c);
+}
+
+.incoming-modal-top-badges {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.badge-new-order {
+    background-color: #dcfce7;
+    color: #15803d;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill, 9999px);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: 0.3px;
+}
+
+.dot-pulse {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: #15803d;
+    display: inline-block;
+    animation: pulseDot 1.8s infinite;
+}
+
+@keyframes pulseDot {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.2); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+.time-ago-tag {
+    font-size: 12px;
+    color: var(--text-muted, #8a948c);
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.incoming-modal-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text-primary, #1a221c);
+    margin: 0 0 6px 0;
+}
+
+.incoming-modal-sub {
+    font-size: 13px;
+    color: var(--text-secondary, #5a645d);
+    margin: 0 0 20px 0;
+    line-height: 1.45;
+}
+
+/* Customer Info Card */
+.customer-info-box {
+    background-color: #f4f6f8;
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.customer-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background-color: var(--primary-green, #163624);
+    color: #ffffff;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.customer-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.customer-name-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.customer-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary, #1a221c);
+}
+
+.badge-regular-buyer {
+    background-color: #e5e7e5;
+    color: var(--text-secondary, #5a645d);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.customer-contact {
+    font-size: 12px;
+    color: var(--text-muted, #8a948c);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Order Basket Section */
+.basket-section {
+    border: 1px solid var(--border-color, #e5e7e5);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.basket-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 18px;
+    background-color: #ffffff;
+    border-bottom: 1px solid var(--border-color, #e5e7e5);
+}
+
+.basket-header-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary, #1a221c);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.gap-certified-badge {
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--text-muted, #8a948c);
+    letter-spacing: 0.5px;
+    background-color: #f0f2f0;
+    padding: 3px 8px;
+    border-radius: 4px;
+}
+
+.basket-items-list {
+    display: flex;
+    flex-direction: column;
+    padding: 6px 18px;
+}
+
+.basket-item-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f2f0;
+}
+
+.basket-item-row:last-child {
+    border-bottom: none;
+}
+
+.basket-item-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.item-thumb {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    object-fit: cover;
+    background-color: var(--light-green-bg, #eaf3ec);
+}
+
+.item-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary, #1a221c);
+}
+
+.item-qty-sub {
+    font-size: 12px;
+    color: var(--text-muted, #8a948c);
+    font-weight: 500;
+    margin-top: 2px;
+}
+
+.item-line-total {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--text-primary, #1a221c);
+}
+
+.subtotal-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f4f6f8;
+    padding: 12px 18px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted, #8a948c);
+    letter-spacing: 0.5px;
+    border-top: 1px solid var(--border-color, #e5e7e5);
+}
+
+.subtotal-amount {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text-primary, #1a221c);
+}
+
+/* Set Delivery Charge Card */
+.delivery-charge-card {
+    background-color: #f4f6f8;
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 24px;
+}
+
+.delivery-card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary, #1a221c);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.form-group-delivery {
+    margin-bottom: 16px;
+}
+
+.delivery-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary, #5a645d);
+    display: block;
+    margin-bottom: 6px;
+}
+
+.delivery-input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border: 1px solid var(--border-color, #e5e7e5);
+    border-radius: var(--radius-btn, 10px);
+    padding: 0 14px;
+    max-width: 100%;
+}
+
+.currency-symbol {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-muted, #8a948c);
+    margin-right: 6px;
+}
+
+.delivery-fee-input {
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 12px 0;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text-primary, #1a221c);
+    background: transparent;
+}
+
+.delivery-help-text {
+    font-size: 12px;
+    color: var(--text-muted, #8a948c);
+    display: block;
+    margin-top: 6px;
+}
+
+.delivery-summary-box {
+    border-top: 1px solid var(--border-color, #e5e7e5);
+    padding-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--text-secondary, #5a645d);
+}
+
+.total-payable-row {
+    font-size: 15px;
+    color: var(--text-primary, #1a221c);
+    margin-top: 6px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border-color, #e5e7e5);
+}
+
+.total-payable-amount {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--text-primary, #1a221c);
+}
+
+/* Modal Bottom Actions Row */
+.modal-action-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.btn-decline-order {
+    background-color: #eef0ee;
+    color: var(--text-primary, #1a221c);
+    border: none;
+    padding: 12px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: var(--radius-btn, 10px);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-decline-order:hover {
+    background-color: #e2e5e2;
+}
+
+.btn-contact-buyer {
+    background-color: #eef0ee;
+    color: var(--text-primary, #1a221c);
+    border: none;
+    padding: 12px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: var(--radius-btn, 10px);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-contact-buyer:hover {
+    background-color: #e2e5e2;
+}
+
+.btn-confirm-send {
+    background-color: var(--primary-green, #163624);
+    color: #ffffff;
+    border: none;
+    padding: 12px 22px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: var(--radius-btn, 10px);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-confirm-send:hover {
+    background-color: var(--primary-green-hover, #0e2417);
+}
+
+.btn-price-pill {
+    background-color: #10b981;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 2px 10px;
+    border-radius: 12px;
+}
+
+/* Responsive Modal Adjustments */
+@media (max-width: 640px) {
+    .modal-action-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn-decline-order,
+    .btn-contact-buyer,
+    .btn-confirm-send {
+        width: 100%;
+        justify-content: center;
+    }
+}

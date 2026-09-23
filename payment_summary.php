@@ -15,6 +15,23 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = (int)$_SESSION['user_id'];
 $user_name = isset($_SESSION['full_name']) ? $_SESSION['full_name'] : 'Owner';
+
+// fetch real contact details - PayHere requires these fields to initialize payment
+
+include 'includes/dbConnection.php';
+
+$stmtUser = $pdo->prepare("SELECT full_name, email, address, city FROM users WHERE id = :id");
+$stmtUser->execute(['id' => $user_id]);
+$userInfo = $stmtUser->fetch();
+
+$user_email   = $userInfo['email']   ?? 'customer@example.com';
+$user_address = $userInfo['address'] ?? 'N/A';
+$user_city    = $userInfo['city']    ?? 'Colombo';
+
+// Split full name into first/last - PayHere needs these as two separate fields
+$nameParts  = explode(' ', trim($user_name), 2);
+$first_name = $nameParts[0];
+$last_name  = $nameParts[1] ?? $nameParts[0]; // fallback if user has only one name on file
 ?>
 
 <!DOCTYPE html>
@@ -259,12 +276,12 @@ $user_name = isset($_SESSION['full_name']) ? $_SESSION['full_name'] : 'Owner';
                     amount: data.amount,
                     currency: data.currency,
                     hash: data.hash,
-                    first_name: '<?php echo htmlspecialchars($user_name); ?>',
-                    last_name: '',
-                    email: '',
-                    phone: '',
-                    address: '',
-                    city: '',
+                    first_name: '<?php echo htmlspecialchars($first_name); ?>',
+                    last_name: '<?php echo htmlspecialchars($last_name); ?>',
+                    email: '<?php echo htmlspecialchars($user_email); ?>',
+                    phone: '0770000000',
+                    address: '<?php echo htmlspecialchars($user_address); ?>',
+                    city: '<?php echo htmlspecialchars($user_city); ?>',
                     country: 'Sri Lanka',
                 };
 
@@ -282,6 +299,7 @@ $user_name = isset($_SESSION['full_name']) ? $_SESSION['full_name'] : 'Owner';
                 };
 
                 window.payhere.onError = function(error) {
+                    console.error('PayHere error:', error);
                     payBtn.disabled = false;
                     payBtn.textContent = 'Proceed to Payment →';
                     errorMsg.textContent = 'Payment failed. Please try again.';

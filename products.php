@@ -1,6 +1,6 @@
 <?php
 
-// products.php - Products Listing, Product Details in one file
+// products.php - Products Listing + Product Details in one file
 // No ID = show all vegetables & fruits listing
 // With ID = show single product details
 
@@ -10,7 +10,7 @@ include 'includes/dbConnection.php';
 // Get product ID from URL if exists
 $product_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
-// View 1: Products Listing (no ID in URL)
+// VIEW 1: PRODUCTS LISTING (no ID in URL)
 
 if ($product_id === 0) {
 
@@ -47,7 +47,9 @@ if ($product_id === 0) {
     $products = $stmt->fetchAll();
 ?>
 
-<!-- Products Listing View -->
+<!-- ============================================================
+     PRODUCTS LISTING VIEW
+     ============================================================ -->
 <div class="main-wrapper">
     <div class="products-layout">
 
@@ -206,7 +208,7 @@ if ($product_id === 0) {
         .products-grid { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 480px) { .products-grid { grid-template-columns: 1fr; } }
-    // Unit Toggle //
+    /* Unit Toggle */
 .unit-toggle { margin-bottom: 4px; }
 .unit-btns { display: flex; gap: 8px; margin-top: 8px; }
 .unit-btn {
@@ -290,9 +292,11 @@ include 'includes/footer.php';
 exit;
 } // end listing view
 
-// View 2: Products details (ID given in URL)
+// ============================================================
+// VIEW 2: PRODUCT DETAILS (ID given in URL)
+// ============================================================
 
-// Fetch product details - JOIN stores to get store name and ID
+// Fetch product details — JOIN stores to get store name and ID
 $stmtProduct = $pdo->prepare("
     SELECT products.*, stores.store_name, stores.id AS store_id
     FROM products
@@ -321,7 +325,9 @@ if ($product['quantity'] <= 0) {
 }
 ?>
 
-<!-- Products details view -->
+<!-- ============================================================
+     PRODUCT DETAILS VIEW
+     ============================================================ -->
 <div class="main-wrapper">
 
     <!-- Back link -->
@@ -331,20 +337,20 @@ if ($product['quantity'] <= 0) {
 
     <div class="product-detail-layout">
 
-        <!-- Left: Product Image -->
+        <!-- LEFT: Product Image -->
         <div class="product-detail-img">
-    <?php if (!empty($product['image'])): ?>
-        <img src="static/images/Products/<?php echo htmlspecialchars($product['image']); ?>"
-             alt="<?php echo htmlspecialchars($product['name']); ?>">
-    <?php else: ?>
-        <img src="static/images/image3.jpg" alt="Product">
-    <?php endif; ?>
-</div>
+            <?php if (!empty($product['image'])): ?>
+                <img src="static/uploads/products/<?php echo htmlspecialchars($product['image']); ?>"
+                     alt="<?php echo htmlspecialchars($product['name']); ?>">
+            <?php else: ?>
+                <img src="static/images/image3.jpg" alt="Product">
+            <?php endif; ?>
+        </div>
 
-        <!-- Right: Product Info -->
+        <!-- RIGHT: Product Info -->
         <div class="product-detail-info">
 
-            <!-- Category tag and Store name -->
+            <!-- Category tag + Store name -->
             <div class="product-detail-meta">
                 <span class="product-detail-tag">
                     <?php echo strtoupper($product['category']); ?>
@@ -402,7 +408,7 @@ if ($product['quantity'] <= 0) {
 <!-- Action Buttons -->
 <?php if ($product['quantity'] > 0): ?>
     <div class="product-detail-btns">
-        <?php if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'customer'): ?>
+        <?php if (isset($_SESSION['user_id']) && isset($_SESSION['role']) && $_SESSION['role'] === 'customer'): ?>
             <a href="cart.php?add=<?php echo $product['id']; ?>&qty=1"
                id="addToCartBtn"
                class="btn btn-outline add-to-cart-btn">
@@ -459,7 +465,7 @@ if ($product['quantity'] <= 0) {
     /* Product Info */
     .product-detail-info { flex: 1; display: flex; flex-direction: column; gap: 16px; }
 
-    /* Meta row - category tag and store */
+    /* Meta row - category tag + store */
     .product-detail-meta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
     .product-detail-tag {
         background: var(--primary);

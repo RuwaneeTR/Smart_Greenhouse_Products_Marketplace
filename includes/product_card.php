@@ -1,9 +1,10 @@
 <?php
-
+// ============================================================
 // includes/product_card.php - Reusable Product Card
 // $product variable must be set before including this file
 // Used in: stores.php, products.php, plants.php
 // Automatically links to correct detail page based on category
+// ============================================================
 
 // Determine stock status
 if ($product['quantity'] <= 0) {
@@ -18,13 +19,12 @@ if ($product['quantity'] <= 0) {
 }
 
 // Plants link to plants.php, everything else to products.php
-
 $detailPage = $product['category'] === 'plant' ? 'plants.php' : 'products.php';
 ?>
 <a href="<?php echo $detailPage; ?>?id=<?php echo $product['id']; ?>" class="product-card">
     <div class="product-card-img">
         <?php if (!empty($product['image'])): ?>
-            <img src="static/images/Products/<?php echo htmlspecialchars($product['image']); ?>"
+            <img src="static/uploads/products/<?php echo htmlspecialchars($product['image']); ?>"
                  alt="<?php echo htmlspecialchars($product['name']); ?>">
         <?php else: ?>
             <img src="static/images/image3.jpg" alt="Product">

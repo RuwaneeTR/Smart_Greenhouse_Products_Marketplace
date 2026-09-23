@@ -2,7 +2,7 @@
             <!-- Col 1: Logo + Tagline -->
             <div class="footer-col">
                 <a href="index.php" class="footer-logo">
-                    <img src="static/images/logo.png" style="width:auto; height: 40px; vertical-align:middle; margin-right:10px;">
+                    <img src="/Smart_Greenhouse_Products_Marketplace/static/images/logo.png" style="width:auto; height: 40px; vertical-align:middle; margin-right:10px;">
                     <br><span style="color:#2f5233; font-size:16px; font-weight:700;"> Smart Greenhouse Products Marketplace</span>
                 </a>
                 <p>Cultivating life, one seed at a time.<br>
