@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['user_name'] = $full_name;
                 $_SESSION['customer_id'] = $user_id;
 
-                header('Location: home.php');
+                header('Location: login.php?success=Customer account created successfully! Please login.');
                 exit;
             }
         }

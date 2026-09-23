@@ -1,13 +1,9 @@
-
 <?php
 $host = 'localhost';
 $db = 'crops_db';
 $user = 'root';
 $password = "";
 $charset = 'utf8mb4';
-
-
-
 
 $dsn = "mysql:host=$host; dbname=$db; charset=$charset";
 $options = [
@@ -16,12 +12,9 @@ $options = [
     PDO::ATTR_EMULATE_PREPARES    => false,
 ];
 
-try{
+try {
     $pdo = new PDO($dsn, $user, $password, $options);
-
-}catch (PDOException $e){
+} catch (PDOException $e) {
     die("Connection failed: " . $e->getMessage());
 }
-
 ?>
-

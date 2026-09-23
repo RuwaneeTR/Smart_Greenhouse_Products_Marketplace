@@ -131,21 +131,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Form Submissions
     if (customerRegForm) {
-        customerRegForm.addEventListener('submit', (e) => {
+    customerRegForm.addEventListener('submit', (e) => {
+        const pass = document.getElementById('cust-password').value;
+        const confirmPass = document.getElementById('cust-confirm-password').value;
+
+        if (pass !== confirmPass) {
             e.preventDefault();
-            const pass = document.getElementById('cust-password').value;
-            const confirmPass = document.getElementById('cust-confirm-password').value;
+            alert('Passwords do not match. Please try again.');
+        }
+    });
 
-            if (pass !== confirmPass) {
-                alert('Passwords do not match. Please try again.');
-                return;
-            }
-
-            window.location.href = 'login.php?success=Customer account created successfully! Please login.';
-            customerRegForm.reset();
-            resetToRoleSelection();
-        });
-    }
+}
 
     if (ownerRegForm) {
         ownerRegForm.addEventListener('submit', (e) => {
