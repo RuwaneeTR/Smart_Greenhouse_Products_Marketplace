@@ -123,13 +123,13 @@ if ($store_id === 0) {
                    class="store-card <?php echo $index >= 4 ? 'hidden-card' : ''; ?>">
 
                     <div class="store-card-image">
-                        <?php if (!empty($store['image'])): ?>
-                            <img src="static/uploads/stores/<?php echo htmlspecialchars($store['image']); ?>"
-                                 alt="<?php echo htmlspecialchars($store['store_name']); ?>">
-                        <?php else: ?>
-                            <img src="static/images/image2.jpg" alt="Store">
-                        <?php endif; ?>
-
+    <?php if (!empty($store['image'])): ?>
+        <img src="/Smart_Greenhouse_Products_Marketplace/<?php echo htmlspecialchars($store['image']); ?>"
+             alt="<?php echo htmlspecialchars($store['store_name']); ?>">
+    <?php else: ?>
+        <img src="static/images/image2.jpg" alt="Store">
+    <?php endif; ?>
+    ...
                         <?php if ($store['avg_rating']): ?>
                             <span class="rating-badge">
                                 <i class="fas fa-star"></i>
@@ -322,7 +322,10 @@ $stmtStore = $pdo->prepare("
     SELECT stores.*,
            users.full_name AS owner_name,
            users.email AS owner_email,
+           users.address AS owner_address,
+           users.phone AS owner_phone,
            users.gap_certificate,
+           users.profile_image AS owner_profile_image,
            COUNT(DISTINCT products.id) AS total_products,
            COUNT(DISTINCT orders.customer_id) AS happy_customers,
            ROUND(AVG(reviews.rating), 1) AS avg_rating,
@@ -416,35 +419,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_review'])) {
     </div>
 
     <!-- Hero Banner -->
-    <div class="store-hero">
-        <?php if (!empty($store['image'])): ?>
-            <img src="static/uploads/stores/<?php echo htmlspecialchars($store['image']); ?>" alt="<?php echo htmlspecialchars($store['store_name']); ?>" class="store-hero-img">
-        <?php else: ?>
-            <img src="static/images/image1.jpg" alt="Store" class="store-hero-img">
-        <?php endif; ?>
-        <div class="store-hero-overlay"></div>
-    </div>
+<div class="store-hero">
+    <?php if (!empty($store['image'])): ?>
+        <img src="/Smart_Greenhouse_Products_Marketplace/<?php echo htmlspecialchars($store['image']); ?>" alt="<?php echo htmlspecialchars($store['store_name']); ?>" class="store-hero-img">
+    <?php else: ?>
+        <img src="static/images/image1.jpg" alt="Store" class="store-hero-img">
+    <?php endif; ?>
+    <div class="store-hero-overlay"></div>
+</div>
 
     <div class="main-wrapper">
 
-        <!-- Store Name Bar -->
-        <div class="store-name-bar">
-            <div class="store-logo-thumb">
-                <img src="static/images/logo.png" alt="Store">
-            </div>
-            <div class="store-name-info">
-                <div class="store-title-row">
-                    <h1><?php echo htmlspecialchars($store['store_name']); ?></h1>
-                    <?php if (!empty($store['gap_certificate'])): ?>
-                        <span class="gap-badge"><i class="fas fa-check-circle"></i> GAP CERTIFIED</span>
-                    <?php endif; ?>
-                </div>
-                <p class="store-meta-line">
-                    <span><i class="fas fa-user"></i> Managed by <?php echo htmlspecialchars($store['owner_name']); ?></span>
-                    <span><i class="fas fa-location-dot"></i> <?php echo htmlspecialchars($store['city']); ?></span>
-                </p>
-            </div>
+              <div class="store-name-bar">
+    <div class="store-logo-thumb">
+        <?php if (!empty($store['owner_profile_image'])): ?>
+            <img src="/Smart_Greenhouse_Products_Marketplace/<?php echo htmlspecialchars($store['owner_profile_image']); ?>" alt="<?php echo htmlspecialchars($store['owner_name']); ?>">
+        <?php else: ?>
+            <img src="static/images/image2.jpg" alt="Owner">
+        <?php endif; ?>
+        <span class="owner-name-tag"><?php echo htmlspecialchars($store['owner_name']); ?></span>
+    </div>
+    <div class="store-name-info">
+        <div class="store-title-row">
+            <h1><?php echo htmlspecialchars($store['store_name']); ?></h1>
+            <?php if (!empty($store['gap_certificate'])): ?>
+                <span class="gap-badge"><i class="fas fa-check-circle"></i> GAP CERTIFIED</span>
+            <?php endif; ?>
         </div>
+        <p class="store-meta-line">
+            <span><i class="fas fa-location-dot"></i> <?php echo htmlspecialchars($store['city']); ?></span>
+        </p>
+    </div>
+</div>
 
         <!-- Stat Cards -->
         <div class="store-stats">
@@ -474,14 +480,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_review'])) {
         <!-- About + Products -->
         <div class="store-main-content">
             <div class="store-about">
-                <h3>About the Grower</h3>
-                <p><?php echo nl2br(htmlspecialchars($store['description'] ?? 'No description provided.')); ?></p>
-                <div class="store-contact-info">
-                    <?php if (!empty($store['owner_email'])): ?>
-                        <p><i class="fas fa-envelope"></i> <a href="mailto:<?php echo htmlspecialchars($store['owner_email']); ?>"><?php echo htmlspecialchars($store['owner_email']); ?></a></p>
-                    <?php endif; ?>
-                </div>
-            </div>
+    <h3>About the Grower</h3>
+    <p><?php echo nl2br(htmlspecialchars($store['description'] ?? 'No description provided.')); ?></p>
+    <div class="store-contact-info">
+        <?php if (!empty($store['owner_address'])): ?>
+            <p><i class="fas fa-map-marker-alt"></i> <?php echo htmlspecialchars($store['owner_address']); ?></p>
+        <?php endif; ?>
+        <?php if (!empty($store['owner_phone'])): ?>
+            <p><i class="fas fa-phone"></i> <?php echo htmlspecialchars($store['owner_phone']); ?></p>
+        <?php endif; ?>
+        <?php if (!empty($store['owner_email'])): ?>
+            <p><i class="fas fa-envelope"></i> <a href="mailto:<?php echo htmlspecialchars($store['owner_email']); ?>"><?php echo htmlspecialchars($store['owner_email']); ?></a></p>
+        <?php endif; ?>
+    </div>
+</div>
 
             <div class="store-products">
                 <div class="category-tabs">
@@ -587,6 +599,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_review'])) {
     .store-name-bar { display: flex; align-items: center; gap: 16px; background: #fff; border-radius: var(--radius-lg); padding: 16px 24px; margin-top: -40px; position: relative; z-index: 10; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 24px; flex-wrap: wrap; }
     .store-logo-thumb { width: 64px; height: 64px; border-radius: var(--radius-lg); overflow: hidden; border: 2px solid var(--outline-variant); flex-shrink: 0; }
     .store-logo-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .store-logo-thumb { position: relative; }
+.owner-name-tag {
+    display: block;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--on-surface-variant);
+    margin-top: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 64px;
+}
     .store-name-info { flex: 1; }
     .store-title-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
     .store-title-row h1 { font-size: 1.4rem; font-weight: 700; color: var(--on-surface); }

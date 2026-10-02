@@ -106,14 +106,18 @@ include '../includes/header.php';
     <aside class="sidebar" id="sidebar">
         <!-- Profile Mini-Card at Top -->
         <div class="sidebar-user-mini">
-            <div class="mini-avatar-circle">
-                <?= htmlspecialchars($initials) ?>
-            </div>
-            <div class="mini-user-info">
-                <h4 class="mini-name"><?= htmlspecialchars($fullName) ?></h4>
-                <span class="mini-role">Store Owner</span>
-            </div>
-        </div>
+    <div class="mini-avatar-circle">
+        <?php if (!empty($owner['profile_image'])): ?>
+            <img src="/Smart_Greenhouse_Products_Marketplace/<?= htmlspecialchars($owner['profile_image']) ?>" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">
+        <?php else: ?>
+            <?= htmlspecialchars($initials) ?>
+        <?php endif; ?>
+    </div>
+    <div class="mini-user-info">
+        <h4 class="mini-name"><?= htmlspecialchars($fullName) ?></h4>
+        <span class="mini-role">Store Owner</span>
+    </div>
+</div>
 
         <!-- Sidebar Navigation Menu -->
         <nav class="sidebar-menu">

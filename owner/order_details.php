@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'owner') {
 $userId = $_SESSION['user_id'];
 
 // Owner for sidebar
-$stmt = $pdo->prepare("SELECT full_name, city FROM users WHERE id = ?");
+$stmt = $pdo->prepare("SELECT full_name, city, profile_image FROM users WHERE id = ?");
 $stmt->execute([$userId]);
 $owner = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -109,14 +109,18 @@ include '../includes/header.php';
     <!-- Left Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-user-mini">
-            <div class="mini-avatar-circle">
-                <?= htmlspecialchars($initials) ?>
-            </div>
-            <div class="mini-user-info">
-                <h4 class="mini-name"><?= htmlspecialchars($fullName) ?></h4>
-                <span class="mini-role">Store Owner</span>
-            </div>
-        </div>
+    <div class="mini-avatar-circle">
+        <?php if (!empty($owner['profile_image'])): ?>
+            <img src="/Smart_Greenhouse_Products_Marketplace/<?= htmlspecialchars($owner['profile_image']) ?>" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">
+        <?php else: ?>
+            <?= htmlspecialchars($initials) ?>
+        <?php endif; ?>
+    </div>
+    <div class="mini-user-info">
+        <h4 class="mini-name"><?= htmlspecialchars($fullName) ?></h4>
+        <span class="mini-role">Store Owner</span>
+    </div>
+</div>
 
         <nav class="sidebar-menu">
             <ul class="nav-list">

@@ -143,23 +143,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 }
 
-    if (ownerRegForm) {
-        ownerRegForm.addEventListener('submit', (e) => {
+if (ownerRegForm) {
+    ownerRegForm.addEventListener('submit', (e) => {
+        const pass = document.getElementById('owner-password').value;
+        const confirmPass = document.getElementById('owner-confirm-password').value;
+
+        if (pass !== confirmPass) {
             e.preventDefault();
-            const pass = document.getElementById('owner-password').value;
-            const confirmPass = document.getElementById('owner-confirm-password').value;
-
-            if (pass !== confirmPass) {
-                alert('Passwords do not match. Please try again.');
-                return;
-            }
-
-            alert('Greenhouse Owner account created successfully!');
-            ownerRegForm.reset();
-            if (selectedFilename) selectedFilename.textContent = '';
-            resetToRoleSelection();
-        });
-    }
+            alert('Passwords do not match. Please try again.');
+        }
+    });
+}
 
     if (loginForm) {
         //loginForm.addEventListener('submit', (e) => {

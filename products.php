@@ -340,8 +340,8 @@ if ($product['quantity'] <= 0) {
         <!-- LEFT: Product Image -->
         <div class="product-detail-img">
             <?php if (!empty($product['image'])): ?>
-                <img src="static/uploads/products/<?php echo htmlspecialchars($product['image']); ?>"
-                     alt="<?php echo htmlspecialchars($product['name']); ?>">
+                <img src="<?php echo htmlspecialchars($product['image']); ?>"
+     alt="<?php echo htmlspecialchars($product['name']); ?>">
             <?php else: ?>
                 <img src="static/images/image3.jpg" alt="Product">
             <?php endif; ?>

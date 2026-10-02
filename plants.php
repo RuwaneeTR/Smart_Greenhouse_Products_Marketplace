@@ -147,8 +147,8 @@ if ($plant_id === 0) {
                     <!-- Image -->
                     <div class="plant-card-img">
                         <?php if (!empty($plant['image'])): ?>
-                            <img src="static/uploads/products/<?php echo htmlspecialchars($plant['image']); ?>"
-                                 alt="<?php echo htmlspecialchars($plant['name']); ?>">
+                            <img src="<?php echo htmlspecialchars($plant['image']); ?>"
+     alt="<?php echo htmlspecialchars($plant['name']); ?>">
                         <?php else: ?>
                             <img src="static/images/image2.jpg" alt="Plant">
                         <?php endif; ?>

@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['user_name'] = $full_name;
                 $_SESSION['customer_id'] = $owner_id;
 
-                header('Location: ../owner/owner_dashboard.php');
+                header('Location: login.php?success=Greenhouse Owner account created successfully! Please login.');
                 exit;}
             }
         }
@@ -311,7 +311,7 @@ include '../includes/header.php';
                                 <label class="custom-checkbox">
                                     <input type="checkbox" required>
                                     <span class="checkbox-square"></span>
-                                    <span class="terms-text">I agree to the <a href="#">Terms and Conditions</a>.</span>
+                                    <span class="terms-text">I agree to the <a href="../terms.php">Terms and Conditions</a>.</span>
                                 </label>
                             </div>
 

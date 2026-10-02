@@ -38,38 +38,39 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3500);
     }
 
-    // 2. Form Submit Handler
-    if (editForm) {
-        editForm.addEventListener('submit', (e) => {
+   if (editForm) {
+    editForm.addEventListener('submit', (e) => {
+        // Form validation
+        const emailInput = document.getElementById('emailInput');
+        const fullNameInput = document.getElementById('fullNameInput');
+        const phoneInput = document.getElementById('phoneInput');
+
+        if (fullNameInput && !fullNameInput.value.trim()) {
             e.preventDefault();
+            showToast('Please enter your full name.', true);
+            fullNameInput.focus();
+            return;
+        }
 
-            // Form validation
-            const emailInput = document.getElementById('emailInput');
-            const fullNameInput = document.getElementById('fullNameInput');
-            const phoneInput = document.getElementById('phoneInput');
+        if (emailInput && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim())) {
+            e.preventDefault();
+            showToast('Please enter a valid email address.', true);
+            emailInput.focus();
+            return;
+        }
 
-            if (fullNameInput && !fullNameInput.value.trim()) {
-                showToast('Please enter your full name.', true);
-                fullNameInput.focus();
-                return;
-            }
+        if (phoneInput && !phoneInput.value.trim()) {
+            e.preventDefault();
+            showToast('Please enter a valid phone number.', true);
+            phoneInput.focus();
+            return;
+        }
 
-            if (emailInput && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim())) {
-                showToast('Please enter a valid email address.', true);
-                emailInput.focus();
-                return;
-            }
-
-            if (phoneInput && !phoneInput.value.trim()) {
-                showToast('Please enter a valid phone number.', true);
-                phoneInput.focus();
-                return;
-            }
-
-            // Simulate successful profile save
-            showToast('Profile saved successfully!');
-        });
-    }
+        // Validation passed — let the form submit normally to the server
+        // (no e.preventDefault() here, no fake toast — the page will reload
+        // and the PHP $updateSuccess message will show instead)
+    });
+}
 
     // 3. Discard Changes Button
     const discardBtn = document.getElementById('discardBtn');
@@ -132,14 +133,54 @@ document.addEventListener('DOMContentLoaded', () => {
             showToast('Profile photo removed.');
         });
     }
+        if (removePhotoLink && avatarPreviewCircle) {
+        removePhotoLink.addEventListener('click', () => {
+            if (avatarFileInput) avatarFileInput.value = '';
+            avatarPreviewCircle.innerHTML = defaultInitials;
+            showToast('Profile photo removed.');
+        });
+    }
+
+    // 5b. Store Image Upload Handling
+    document.getElementById('changeStoreImgBtn')?.addEventListener('click', () => {
+        document.getElementById('storeImageInput').click();
+    });
+
+    const storeImageInput = document.getElementById('storeImageInput');
+    if (storeImageInput) {
+        storeImageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                if (file.size > 5 * 1024 * 1024) {
+                    showToast('Store image exceeds 5MB limit.', true);
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = function (evt) {
+                    const circle = storeImageInput.closest('.large-avatar-wrapper').querySelector('.large-avatar-circle');
+                    if (circle) {
+                        circle.innerHTML = `<img src="${evt.target.result}" style="width:100%;height:100%;border-radius:var(--radius-lg);object-fit:cover;" alt="Store Preview">`;
+                    }
+                    showToast('Store image selected — click Save Changes to upload.');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
 
     // 6. GAP Re-verify Button Handler
     const reverifyBtn = document.getElementById('reverifyBtn');
-    if (reverifyBtn) {
-        reverifyBtn.addEventListener('click', () => {
-            showToast('GAP Certificate verification portal opened.');
-        });
-    }
+const gapCertInput = document.getElementById('gapCertInput');
+if (reverifyBtn && gapCertInput) {
+    reverifyBtn.addEventListener('click', () => {
+        gapCertInput.click();
+    });
+    gapCertInput.addEventListener('change', () => {
+        if (gapCertInput.files.length > 0) {
+            showToast('Certificate selected — click Save Changes to upload.');
+        }
+    });
+}
 
     // 7. Mobile Sidebar Drawer Controls
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');

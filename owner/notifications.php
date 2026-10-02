@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'owner') {
 $userId = $_SESSION['user_id'];
 
 // Fetch owner for sidebar
-$stmt = $pdo->prepare("SELECT full_name, city FROM users WHERE id = ?");
+$stmt = $pdo->prepare("SELECT full_name, city, profile_image FROM users WHERE id = ?");
 $stmt->execute([$userId]);
 $owner = $stmt->fetch(PDO::FETCH_ASSOC);
 

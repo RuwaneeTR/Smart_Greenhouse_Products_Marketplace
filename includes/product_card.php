@@ -24,11 +24,11 @@ $detailPage = $product['category'] === 'plant' ? 'plants.php' : 'products.php';
 <a href="<?php echo $detailPage; ?>?id=<?php echo $product['id']; ?>" class="product-card">
     <div class="product-card-img">
         <?php if (!empty($product['image'])): ?>
-            <img src="static/uploads/products/<?php echo htmlspecialchars($product['image']); ?>"
-                 alt="<?php echo htmlspecialchars($product['name']); ?>">
-        <?php else: ?>
-            <img src="static/images/image3.jpg" alt="Product">
-        <?php endif; ?>
+    <img src="/Smart_Greenhouse_Products_Marketplace/<?php echo htmlspecialchars($product['image']); ?>"
+         alt="<?php echo htmlspecialchars($product['name']); ?>">
+<?php else: ?>
+    <img src="static/images/image3.jpg" alt="Product">
+<?php endif; ?>
         <span class="stock-badge <?php echo $stockClass; ?>"><?php echo $stockLabel; ?></span>
     </div>
     <div class="product-card-info">

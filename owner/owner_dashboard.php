@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'owner') {
 $userId = $_SESSION['user_id'];
 
 // 1. Fetch owner details
-$stmtUser = $pdo->prepare("SELECT full_name, email, city, address, phone, gap_certificate FROM users WHERE id = :id AND role = 'owner'");
+$stmtUser = $pdo->prepare("SELECT full_name, email, city, address, phone, gap_certificate, profile_image FROM users WHERE id = :id AND role = 'owner'");
 $stmtUser->execute([':id' => $userId]);
 $owner = $stmtUser->fetch(PDO::FETCH_ASSOC);
 
@@ -113,9 +113,15 @@ include '../includes/header.php';
         <!-- Profile Mini-Card at Top -->
         <div class="profile-card">
           <div class="avatar-large-wrapper">
-            <div class="avatar-circle-lg"><?= htmlspecialchars($initials) ?></div>
-               <span class="online-indicator"></span>
-            </div>
+    <div class="avatar-circle-lg">
+        <?php if (!empty($owner['profile_image'])): ?>
+            <img src="/Smart_Greenhouse_Products_Marketplace/<?= htmlspecialchars($owner['profile_image']) ?>" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">
+        <?php else: ?>
+            <?= htmlspecialchars($initials) ?>
+        <?php endif; ?>
+    </div>
+       <span class="online-indicator"></span>
+    </div>
             <h3 class="profile-name"><?= htmlspecialchars($fullName) ?></h3>
             <p class="profile-subtitle">Store Owner • <?= htmlspecialchars($owner['city']) ?></p>
          </div>
